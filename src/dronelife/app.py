@@ -1,9 +1,6 @@
 from flask import Flask
 from flask import render_template
 
-import os
-import subprocess
-
 app = Flask(__name__)
 
 # Compile less files into css
@@ -16,6 +13,5 @@ def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
-
     app.run(debug=True)
 
