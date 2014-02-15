@@ -41,7 +41,7 @@ To import the database schema and bootstrap it with example data, from the src d
 ### Foundation setup
 
 Dronelife.org uses the super rad foundation SASS framework as a base for stylesheets. To do SASS work, first make sure you have 
-ruby, node.js and the npm package manage installed, then install foundation and its dependencies.
+ruby, node.js and the node package manager (npm) installed, then install foundation and its dependencies.
 
     sudo npm install -g bower grunt-cli
 
