@@ -2,7 +2,9 @@
 
 The new dronelife.org forums
 
-## Database setup
+## Installation
+
+### Database setup
 
 First, install postgresql
     
@@ -31,4 +33,21 @@ Create a new 'dronelife' database giving read/write permission to the dronelife 
 Set the sqlalchemy connection uri environment variable by adding the following to your .bashrc (replacing password with the password you set for your user!)
 
     export DRONELIFE_SQLALCHEMY_DATABASE_URI='postgresql://dronelife:password@localhost/dronelife'
+
+### Application setup
+
+First, make sure you have python 2.7 and pip installed
+
+To install dronelife globally, from the src directory run:
+
+    sudo python setup.py develop
+
+Which will install dronelife in 'develop' mode, which lets you hack on the code without having to reinstall the module on every change.
+In production, `install` should be used instead of `develop`.
+
+To run the app (don't do this in production) just:
+
+    python run.py
+
+Which will start a local server. The site will be accessable from `http://127.0.0.1:5000`
 
