@@ -43,9 +43,8 @@ To install dronelife globally, from the src directory run:
     sudo python setup.py develop
 
 Which will install dronelife in 'develop' mode, which lets you hack on the code without having to reinstall the module on every change.
-In production, `install` should be used instead of `develop`.
 
-To run the app (don't do this in production) just:
+To run the app just:
 
     python run.py
 
