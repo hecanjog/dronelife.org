@@ -38,6 +38,27 @@ To import the database schema and bootstrap it with example data, from the src d
 
     python bootstrap.py
 
+### Foundation setup
+
+Dronelife.org uses the super rad foundation SASS framework as a base for stylesheets. To do SASS work, first make sure you have 
+ruby, node.js and the npm package manage installed, then install foundation and its dependencies.
+
+    sudo npm install -g bower grunt-cli
+
+And to install foundation itself
+
+    gem install foundation
+
+Then, from the root project directory, run
+
+    foundation update
+
+To pull down foundation assets with bower.
+
+To start automatically compiling SASS into CSS, from the root project directory run
+
+    compass watch
+
 ### Application setup
 
 First, make sure you have python 2.7 and pip installed

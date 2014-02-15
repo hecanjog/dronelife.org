@@ -2,3 +2,5 @@
 *.swp
 *.swn
 src/dronelife/static/vendor/*
+.sass-cache
+*.egg-info
