@@ -12,7 +12,7 @@ Switch to the postgres user (this will be created when postgres is installed)
 
 As the postgres user, create a new 'dronelife' user:
 
-    [postgres]$ createuser --interactive
+    [postgres]$ createuser --interactive --pwprompt
     Enter the name of role to add: dronelife
     Enter password for new role:
     Enter it again:
