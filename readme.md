@@ -33,6 +33,10 @@ Create a new 'dronelife' database giving read/write permission to the dronelife 
 Set the sqlalchemy connection uri environment variable by adding the following to your .bashrc (replacing password with the password you set for your user!)
 
     export DRONELIFE_SQLALCHEMY_DATABASE_URI='postgresql://dronelife:password@localhost/dronelife'
+    
+To import the database schema and bootstrap it with example data, from the src directory run:
+
+    python bootstrap.py
 
 ### Application setup
 
