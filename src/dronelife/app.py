@@ -14,11 +14,8 @@ lesscss(app)
 
 @app.route('/')
 def index():
-    print app.name, app.config
-
     return render_template('index.html')
 
 if __name__ == '__main__':
-
     app.run(debug=True)
 
