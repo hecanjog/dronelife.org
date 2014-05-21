@@ -14,11 +14,22 @@ class User(db.Model):
     soundcloud = db.Column(db.String(120))
     description = db.Column(db.Text)
 
-    def __init__(self, username, email):
+    def __init__(self, username, email, password):
         self.username = username
         self.email = email
+        self.password = password 
 
     def __repr__(self):
         return '<User %r>' % self.username
 
+    def is_authenticated(self):
+        return True
 
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return unicode(self.id)
