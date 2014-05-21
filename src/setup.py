@@ -11,6 +11,7 @@ setup(
         'flask-sqlalchemy', 
         'psycopg2', 
         'alembic', 
-        'flask-wtf'
+        'flask-wtf',
+        'flask-login',
     ],
 )
