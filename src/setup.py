@@ -6,7 +6,7 @@ setup(
     description='The dronelife.org forums',
     url='http://github.com/hecanjog/dronelife.org',
     install_requires=[
-        'Flask', 
+        'flask', 
         'flask-appconfig', 
         'flask-sqlalchemy', 
         'psycopg2', 
