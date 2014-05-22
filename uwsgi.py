@@ -1,0 +1,1 @@
+from dronelife import app
