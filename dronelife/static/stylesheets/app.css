@@ -513,43 +513,30 @@ form {
 }
 
 /* Using forms within rows, we need to set some defaults */
-form .row .row, form .post .row, form .row .post, form .post .post {
+form .row .row {
   margin: 0 -0.5rem;
 }
-form .row .row .column, form .post .row .column, form .row .post .column, form .post .post .column, .post form .row .row .user-wrapper, form .post .row .user-wrapper, form .row .post .user-wrapper, form .post .post .user-wrapper, .post form .row .row .content-wrapper, form .post .row .content-wrapper, form .row .post .content-wrapper, form .post .post .content-wrapper,
-form .row .row .columns,
-form .post .row .columns,
-form .row .post .columns,
-form .post .post .columns {
+form .row .row .column,
+form .row .row .columns {
   padding: 0 0.5rem;
 }
-form .row .row.collapse, form .post .row.collapse, form .row .collapse.post, form .post .collapse.post {
+form .row .row.collapse {
   margin: 0;
 }
-form .row .row.collapse .column, form .post .row.collapse .column, form .row .collapse.post .column, form .post .collapse.post .column, form .row .row.collapse .post .user-wrapper, .post form .row .row.collapse .user-wrapper, form .post .row.collapse .user-wrapper, form .row .collapse.post .user-wrapper, form .collapse.post .collapse.post .user-wrapper, form .row .row.collapse .post .content-wrapper, .post form .row .row.collapse .content-wrapper, form .post .row.collapse .content-wrapper, form .row .collapse.post .content-wrapper, form .collapse.post .collapse.post .content-wrapper,
-form .row .row.collapse .columns,
-form .post .row.collapse .columns,
-form .row .collapse.post .columns,
-form .post .collapse.post .columns {
+form .row .row.collapse .column,
+form .row .row.collapse .columns {
   padding: 0;
 }
-form .row .row.collapse input, form .post .row.collapse input, form .row .collapse.post input, form .post .collapse.post input {
+form .row .row.collapse input {
   -moz-border-radius-bottomright: 0;
   -moz-border-radius-topright: 0;
   -webkit-border-bottom-right-radius: 0;
   -webkit-border-top-right-radius: 0;
 }
-form .row input.column, form .post input.column, .post form .row input.user-wrapper, form .post input.user-wrapper, .post form .row input.content-wrapper, form .post input.content-wrapper,
+form .row input.column,
 form .row input.columns,
-form .post input.columns,
 form .row textarea.column,
-form .post textarea.column,
-.post form .row textarea.user-wrapper,
-form .post textarea.user-wrapper,
-.post form .row textarea.content-wrapper,
-form .post textarea.content-wrapper,
-form .row textarea.columns,
-form .post textarea.columns {
+form .row textarea.columns {
   padding-left: 0.5rem;
 }
 
@@ -952,7 +939,7 @@ label.error {
   color: #f04124;
 }
 
-.row, .post {
+.row {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -961,25 +948,24 @@ label.error {
   max-width: 62.5rem;
   *zoom: 1;
 }
-.row:before, .post:before, .row:after, .post:after {
+.row:before, .row:after {
   content: " ";
   display: table;
 }
-.row:after, .post:after {
+.row:after {
   clear: both;
 }
-.row.collapse > .column, .collapse.post > .column, .post .row.collapse > .user-wrapper, .collapse.post > .user-wrapper, .post .row.collapse > .content-wrapper, .collapse.post > .content-wrapper,
-.row.collapse > .columns,
-.collapse.post > .columns {
+.row.collapse > .column,
+.row.collapse > .columns {
   padding-left: 0;
   padding-right: 0;
   float: left;
 }
-.row.collapse .row, .collapse.post .row, .row.collapse .post, .collapse.post .post {
+.row.collapse .row {
   margin-left: 0;
   margin-right: 0;
 }
-.row .row, .post .row, .row .post, .post .post {
+.row .row {
   width: auto;
   margin-left: -0.9375rem;
   margin-right: -0.9375rem;
@@ -988,28 +974,28 @@ label.error {
   max-width: none;
   *zoom: 1;
 }
-.row .row:before, .post .row:before, .row .post:before, .post .post:before, .row .row:after, .post .row:after, .row .post:after, .post .post:after {
+.row .row:before, .row .row:after {
   content: " ";
   display: table;
 }
-.row .row:after, .post .row:after, .row .post:after, .post .post:after {
+.row .row:after {
   clear: both;
 }
-.row .row.collapse, .post .row.collapse, .row .collapse.post, .post .collapse.post {
+.row .row.collapse {
   width: auto;
   margin: 0;
   max-width: none;
   *zoom: 1;
 }
-.row .row.collapse:before, .post .row.collapse:before, .row .collapse.post:before, .post .collapse.post:before, .row .row.collapse:after, .post .row.collapse:after, .row .collapse.post:after, .post .collapse.post:after {
+.row .row.collapse:before, .row .row.collapse:after {
   content: " ";
   display: table;
 }
-.row .row.collapse:after, .post .row.collapse:after, .row .collapse.post:after, .post .collapse.post:after {
+.row .row.collapse:after {
   clear: both;
 }
 
-.column, .post .user-wrapper, .post .content-wrapper,
+.column,
 .columns {
   padding-left: 0.9375rem;
   padding-right: 0.9375rem;
@@ -1018,21 +1004,21 @@ label.error {
 }
 
 @media only screen {
-  .column.small-centered, .post .small-centered.user-wrapper, .post .small-centered.content-wrapper,
+  .column.small-centered,
   .columns.small-centered {
     margin-left: auto;
     margin-right: auto;
     float: none;
   }
 
-  .column.small-uncentered, .post .small-uncentered.user-wrapper, .post .small-uncentered.content-wrapper,
+  .column.small-uncentered,
   .columns.small-uncentered {
     margin-left: 0;
     margin-right: 0;
     float: left;
   }
 
-  .column.small-uncentered.opposite, .post .small-uncentered.opposite.user-wrapper, .post .small-uncentered.opposite.content-wrapper,
+  .column.small-uncentered.opposite,
   .columns.small-uncentered.opposite {
     float: right;
   }
@@ -1157,7 +1143,7 @@ label.error {
     left: auto;
   }
 
-  .column, .post .user-wrapper, .post .content-wrapper,
+  .column,
   .columns {
     position: relative;
     padding-left: 0.9375rem;
@@ -1169,7 +1155,7 @@ label.error {
     width: 8.33333%;
   }
 
-  .small-2, .post .user-wrapper {
+  .small-2 {
     width: 16.66667%;
   }
 
@@ -1201,7 +1187,7 @@ label.error {
     width: 75%;
   }
 
-  .small-10, .post .content-wrapper {
+  .small-10 {
     width: 83.33333%;
   }
 
@@ -1279,21 +1265,21 @@ label.error {
   }
 }
 @media only screen and (min-width: 40.063em) {
-  .column.medium-centered, .post .medium-centered.user-wrapper, .post .medium-centered.content-wrapper,
+  .column.medium-centered,
   .columns.medium-centered {
     margin-left: auto;
     margin-right: auto;
     float: none;
   }
 
-  .column.medium-uncentered, .post .medium-uncentered.user-wrapper, .post .medium-uncentered.content-wrapper,
+  .column.medium-uncentered,
   .columns.medium-uncentered {
     margin-left: 0;
     margin-right: 0;
     float: left;
   }
 
-  .column.medium-uncentered.opposite, .post .medium-uncentered.opposite.user-wrapper, .post .medium-uncentered.opposite.content-wrapper,
+  .column.medium-uncentered.opposite,
   .columns.medium-uncentered.opposite {
     float: right;
   }
@@ -1418,7 +1404,7 @@ label.error {
     left: auto;
   }
 
-  .column, .post .user-wrapper, .post .content-wrapper,
+  .column,
   .columns {
     position: relative;
     padding-left: 0.9375rem;
@@ -1660,21 +1646,21 @@ label.error {
   }
 }
 @media only screen and (min-width: 64.063em) {
-  .column.large-centered, .post .large-centered.user-wrapper, .post .large-centered.content-wrapper,
+  .column.large-centered,
   .columns.large-centered {
     margin-left: auto;
     margin-right: auto;
     float: none;
   }
 
-  .column.large-uncentered, .post .large-uncentered.user-wrapper, .post .large-uncentered.content-wrapper,
+  .column.large-uncentered,
   .columns.large-uncentered {
     margin-left: 0;
     margin-right: 0;
     float: left;
   }
 
-  .column.large-uncentered.opposite, .post .large-uncentered.opposite.user-wrapper, .post .large-uncentered.opposite.content-wrapper,
+  .column.large-uncentered.opposite,
   .columns.large-uncentered.opposite {
     float: right;
   }
@@ -1799,7 +1785,7 @@ label.error {
     left: auto;
   }
 
-  .column, .post .user-wrapper, .post .content-wrapper,
+  .column,
   .columns {
     position: relative;
     padding-left: 0.9375rem;
@@ -3140,10 +3126,29 @@ h1 {
 }
 
 .post {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  max-width: 62.5rem;
+  *zoom: 1;
   margin: 5px 0;
   padding: 0;
+  max-width: none;
+}
+.post:before, .post:after {
+  content: " ";
+  display: table;
+}
+.post:after {
+  clear: both;
 }
 .post .user-wrapper {
+  padding-left: 0.9375rem;
+  padding-right: 0.9375rem;
+  width: 16.66667%;
+  float: left;
   padding: 0;
   padding-right: 10px;
 }
@@ -3155,4 +3160,8 @@ h1 {
 .post .content-wrapper {
   padding: 10px;
   border: 1px solid #ddd;
+  padding-left: 0.9375rem;
+  padding-right: 0.9375rem;
+  width: 83.33333%;
+  float: left;
 }

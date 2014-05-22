@@ -66,14 +66,14 @@ a {
 }
 
 .post {
-    @extend .row;
+    @include grid-row();
 
     margin: 5px 0;
     padding: 0;
+    max-width: none;
 
     .user-wrapper {
-        @extend .small-2;
-        @extend .column;
+        @include grid-column(2);
         padding: 0;
         padding-right: 10px;
 
@@ -87,8 +87,7 @@ a {
     .content-wrapper {
         padding: 10px;
         border: 1px solid #ddd;
-        @extend .small-10;
-        @extend .column;
+        @include grid-column(10);
     }
 }
 

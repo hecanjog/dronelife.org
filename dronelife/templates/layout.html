@@ -15,6 +15,12 @@
 <header>
     <a href="/">Home</a>
     <a href="/profile">Profile</a>
+
+    {% if current_user.is_authenticated %}
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="/login">Login</a>
+    {% endif %}
 </header>
 {% endblock %}
 {% block body %}{% endblock %}{% block js %}{% endblock %}</body>
