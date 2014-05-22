@@ -4,6 +4,7 @@
 Usage:
     dronelife dev
     dronelife run
+    dronelife bootstrap
 
 Options:
     dev         Run the server in debug mode for local development
