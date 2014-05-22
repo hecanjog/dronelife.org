@@ -8,7 +8,7 @@ from flask import flash
 from dronelife import app
 from dronelife import db
 from dronelife.models import User
-from flask.ext.login import login_user
+from flask.ext.login import login_required, current_user, login_user, logout_user
 from flask.ext.wtf import Form
 from wtforms import TextField
 from wtforms.validators import DataRequired
@@ -21,10 +21,21 @@ class LoginForm(Form):
 def load_user(user_id):
     return User.query.filter_by(id=int(user_id)).first()
 
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', user=current_user)
+
 @app.route('/')
 def index():
     user = load_user(1)
     return render_template('index.html', user=user)
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect('/login')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
