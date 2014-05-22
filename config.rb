@@ -1,12 +1,12 @@
 # Require any additional compass plugins here.
-add_import_path "src/dronelife/static/vendor/foundation/scss"
+add_import_path "dronelife/static/vendor/foundation/scss"
 
 # Set this to the root of your project when deployed:
 http_path = "/static/"
-css_dir = "src/dronelife/static/stylesheets"
-sass_dir = "src/dronelife/static/scss"
-images_dir = "src/dronelife/static/img"
-javascripts_dir = "src/dronelife/static/js"
+css_dir = "dronelife/static/stylesheets"
+sass_dir = "dronelife/static/scss"
+images_dir = "dronelife/static/img"
+javascripts_dir = "dronelife/static/js"
 
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed

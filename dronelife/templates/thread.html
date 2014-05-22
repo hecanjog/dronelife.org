@@ -26,30 +26,33 @@
 <ul class="posts">
 {% for post in thread.posts %}
     <li class="post">
-        <div class="user_wrapper">
-            <img src="{{ post.author.avatar }}" />
-            <h6>{{ post.author.username }}</h6>
+        <div class="user-wrapper">
+            <img class="avatar" src="{{ post.author.avatar }}" />
+            <p>Posted by <a href="/{{ post.author.username }}">{{ post.author.username }}</a></p>
         </div>
 
-        <div class="content">{{ post.content }}</div>
+        <div class="content-wrapper">
 
-        <ul>
-        {% for reply in post.replies %}
-            <li class="reply">{{ reply.content }}</li>
-        {% endfor %}
-        </ul>
+                <div class="content">{{ post.content }}</div>
 
-        <button class="toggle-reply" type="button">Reply</button>
+                <ul>
+                {% for reply in post.replies %}
+                    <li class="reply">{{ reply.content }}</li>
+                {% endfor %}
+                </ul>
 
-        <form class="reply-form" method="post" action="/replies">
-        <fieldset>
-            <legend>Reply</legend>
-            {{ replyform.post_id(value=post.id) }}
-            {{ replyform.content(rows=20) }}
-            <button class="cancel-reply" type="button">cancel</button>
-            <button type="submit">reply</button>
-        </fieldset>
-        </form>
+                <button class="toggle-reply" type="button">Reply</button>
+
+                <form class="reply-form" method="post" action="/replies">
+                <fieldset>
+                    <legend>Reply</legend>
+                    {{ replyform.post_id(value=post.id) }}
+                    {{ replyform.content(rows=20) }}
+                    <button class="cancel-reply" type="button">cancel</button>
+                    <button type="submit">reply</button>
+                </fieldset>
+                </form>
+        </div>
     </li>
 
 {% endfor %}

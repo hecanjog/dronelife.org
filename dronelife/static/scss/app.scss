@@ -49,10 +49,48 @@ a {
 
 }
 
-a:hover {
-
-}
-
 .reply-form {
     display: none;
 }
+
+.posts {
+    list-style-type: none;
+    margin: 0;
+    margin-top: 10px;
+}
+
+.og-post {
+    border: 1px solid #aaa;
+    padding: 10px;
+    background-color: #fafafa;
+}
+
+.post {
+    @extend .row;
+
+    margin: 5px 0;
+    padding: 0;
+
+    .user-wrapper {
+        @extend .small-2;
+        @extend .column;
+        padding: 0;
+        padding-right: 10px;
+
+        .avatar {
+            width: 100%;
+            min-height: 40px; // just for testing
+            border: 1px solid #ddd;
+        }
+    }
+
+    .content-wrapper {
+        padding: 10px;
+        border: 1px solid #ddd;
+        @extend .small-10;
+        @extend .column;
+    }
+}
+
+
+
