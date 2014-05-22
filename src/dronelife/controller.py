@@ -4,27 +4,31 @@ from flask import redirect
 from flask import request
 from flask import url_for
 from flask import flash
+from flask import abort
 
 from dronelife import app
 from dronelife import db
 from dronelife.models import User
 from flask.ext.login import login_required, current_user, login_user, logout_user
 from flask.ext.wtf import Form
-from wtforms import TextField
+from wtforms import TextField, PasswordField
 from wtforms.validators import DataRequired
 
 class LoginForm(Form):
     username = TextField('username', validators=[DataRequired()])
-    password = TextField('password', validators=[DataRequired()])
+    password = PasswordField('password', validators=[DataRequired()])
 
 @app.login_manager.user_loader
 def load_user(user_id):
     return User.query.filter_by(id=int(user_id)).first()
 
-@app.route('/profile')
-@login_required
-def profile():
-    return render_template('profile.html', user=current_user)
+@app.route('/<username>')
+def profile(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        abort(404)
+
+    return render_template('profile.html', user=user)
 
 @app.route('/')
 def index():
