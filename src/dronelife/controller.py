@@ -15,6 +15,7 @@ from wtforms.validators import DataRequired
 
 class LoginForm(Form):
     username = TextField('username', validators=[DataRequired()])
+    password = TextField('password', validators=[DataRequired()])
 
 @app.login_manager.user_loader
 def load_user(user_id):
@@ -22,16 +23,18 @@ def load_user(user_id):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    user = load_user(1)
+    return render_template('index.html', user=user)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.data['username']).first()
-        login_user(user)
-        flash('Howdy!')
+        if user is not None and user.check_hash(form.data['password']) == True:
+            login_user(user)
+            flash('Howdy!')
 
-        return redirect(request.args.get('next') or url_for('index'))
+            return redirect(request.args.get('next') or url_for('index'))
 
     return render_template('login.html', form=form)

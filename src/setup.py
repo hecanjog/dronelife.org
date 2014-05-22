@@ -13,5 +13,6 @@ setup(
         'alembic', 
         'flask-wtf',
         'flask-login',
+        'flask-bcrypt',
     ],
 )
