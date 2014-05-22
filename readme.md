@@ -34,9 +34,9 @@ Set the sqlalchemy connection uri environment variable by adding the following t
 
     export DRONELIFE_SQLALCHEMY_DATABASE_URI='postgresql://dronelife:password@localhost/dronelife'
     
-To import the database schema and bootstrap it with example data, from the src directory run:
+To import the database schema and bootstrap it with example data, run:
 
-    python bootstrap.py
+    dronelife bootstrap
 
 ### Foundation setup
 
@@ -63,15 +63,15 @@ To start automatically compiling SASS into CSS, from the root project directory 
 
 First, make sure you have python 2.7 and pip installed
 
-To install dronelife globally, from the src directory run:
+To install dronelife globally, from the project root run:
 
     sudo python setup.py develop
 
 Which will install dronelife in 'develop' mode, which lets you hack on the code without having to reinstall the module on every change.
 
-To run the app just:
+To run the app in development mode, from anywhere just:
 
-    python run.py
+    dronelife dev
 
 Which will start a local server. The site will be accessable from `http://127.0.0.1:5000`
 

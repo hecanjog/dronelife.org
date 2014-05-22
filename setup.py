@@ -14,5 +14,8 @@ setup(
         'flask-wtf',
         'flask-login',
         'flask-bcrypt',
+        'docopt',
     ],
+    scripts=['bin/dronelife'],
+    zip_safe=False,
 )

@@ -1,6 +1,6 @@
 *.pyc
 *.swp
 *.swn
-src/dronelife/static/vendor/*
+dronelife/static/vendor/*
 .sass-cache
 *.egg-info

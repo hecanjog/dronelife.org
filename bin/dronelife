@@ -1,0 +1,33 @@
+#!/usr/local/env python2.7
+"""Dronelife
+
+Usage:
+    dronelife dev
+    dronelife run
+
+Options:
+    dev         Run the server in debug mode for local development
+    run         Run the server in production mode for deployment
+    bootstrap   Populate db with schema and load a default admin
+"""
+
+from dronelife import app
+from dronelife import db
+from dronelife import models as m
+from docopt import docopt
+
+if __name__ == '__main__':
+    args = docopt(__doc__)
+
+    if args['dev'] == True:
+        app.run(debug=True)
+
+    if args['run'] == True:
+        app.run()
+
+    if args['bootstrap'] == True:
+        test_user = m.User('test', 'test@example.com', 'password', is_admin=True, is_moderator=True)
+        db.session.add(test_user)
+        db.create_all()
+        db.session.commit()
+

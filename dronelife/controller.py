@@ -94,7 +94,7 @@ def addPost():
     db.session.add(post)
     db.session.commit()
 
-    return redirect('/threads/%s/%s' % (thread.id, thread.title))
+    return redirect(thread.getUrl())
 
 @app.route('/replies', methods=['POST'])
 @login_required
@@ -114,7 +114,7 @@ def addReply():
 
     thread = Thread.query.filter_by(id=post.thread_id).first_or_404()
 
-    return redirect('/threads/%s/%s' % (thread.id, thread.title))
+    return redirect(thread.getUrl())
 
 
 @app.route('/threads', methods=['POST'])
@@ -137,7 +137,7 @@ def addThread():
 
     thread = Thread.query.filter_by(title=thread.title).first_or_404()
 
-    return redirect('/threads/%s/%s' % (thread.id, thread.title))
+    return redirect(thread.getUrl())
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

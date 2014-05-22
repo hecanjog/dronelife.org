@@ -3,6 +3,7 @@ from datetime import datetime
 from flask.ext.bcrypt import Bcrypt
 import random
 from dronelife import app
+import urllib
 
 bcrypt = Bcrypt(app)
 
@@ -58,6 +59,9 @@ class Thread(db.Model):
     def setTitle(self, title):
         self.title = title
         self.edited = datetime.utcnow()
+
+    def getUrl(self):
+        return '/threads/%s/%s' % (self.id, urllib.quote_plus(self.title))
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
