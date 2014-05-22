@@ -40,10 +40,10 @@ def profile(username):
 
 @app.route('/')
 def index():
-    threads = Thread.query.all()
+    topics = Topic.query.all()
     form = NewThreadForm()
 
-    return render_template('index.html', form=form, threads=threads)
+    return render_template('index.html', form=form, topics=topics)
 
 @app.route('/logout')
 @login_required

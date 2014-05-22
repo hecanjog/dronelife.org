@@ -14,9 +14,12 @@
 </fieldset>
 </form>
 
+{% for topic in topics %}
+<h5>{{ topic.content }}</h5>
 <ul class="recent-threads">
-    {% for thread in threads %}
+    {% for thread in topic.threads %}
     <li><a href="/threads/{{ thread.id }}/{{ thread.title }}">{{ thread.title }}</a></li>
     {% endfor %}
 </ul>
+{% endfor %}
 {% endblock %}
