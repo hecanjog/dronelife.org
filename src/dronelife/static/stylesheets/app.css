@@ -3101,6 +3101,10 @@ th.hide-for-touch {
   display: table-cell !important;
 }
 
+body {
+  padding: 10px;
+}
+
 h1 {
   font-family: 'Mate SC', serif;
 }

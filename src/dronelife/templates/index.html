@@ -2,19 +2,21 @@
 {% block body %}
 <h1>#DRONELIFE</h1>
 
-<h4>Create a new thread</h4>
-
 <form method="post" action="/threads">
+<fieldset>
+    <legend>New Thread</legend>
     {{ form.title.label }}
     {{ form.title(size=(80)) }}
 
     {{ form.content.label }}
     {{ form.content(rows=20) }}
     <button type="submit">post</button>
+</fieldset>
 </form>
 
 <ul class="recent-threads">
     {% for thread in threads %}
     <li><a href="/threads/{{ thread.id }}/{{ thread.title }}">{{ thread.title }}</a></li>
     {% endfor %}
+</ul>
 {% endblock %}
