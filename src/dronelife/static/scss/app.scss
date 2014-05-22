@@ -5,13 +5,13 @@
 //   "foundation/components/alert-boxes",
 //   "foundation/components/block-grid",
 //   "foundation/components/breadcrumbs",
-//   "foundation/components/button-groups",
-//   "foundation/components/buttons",
+   "foundation/components/button-groups",
+   "foundation/components/buttons",
 //   "foundation/components/clearing",
 //   "foundation/components/dropdown",
 //   "foundation/components/dropdown-buttons",
 //   "foundation/components/flex-video",
-//   "foundation/components/forms",
+   "foundation/components/forms",
    "foundation/components/grid",
 //   "foundation/components/inline-lists",
 //   "foundation/components/joyride",
@@ -38,26 +38,17 @@
    "foundation/components/visibility";
 
 body {
-    background-color: #000;
+
 }
 
 h1 {
-    margin-top: 250px;
-    text-align: center;
-    font-size: 40px;
-    color: #1d1d1d;
     font-family: 'Mate SC', serif;
 }
 
 a {
-    color: #1d1d1d;
-    -webkit-transition: color 1s ease-in;
-    -moz-transition: color 1s ease-in;
-    -o-transition: color 1s ease-in;
-    transition: color 1s ease-in;
-    text-decoration: none;
+
 }
 
 a:hover {
-    color: #e1e1e1;
+
 }

@@ -1,1 +1,17 @@
-{{ thread }}
+{% extends "layout.html" %}
+{% block body %}
+<h2>{{ thread.title }}</h2>
+<div class="og-post">{{ thread.content }}</div>
+
+{% for post in thread.posts %}
+    <div class="post">{{ post.content }}</div>
+
+    {% for reply in post.replies %}
+        <div class="reply">{{ reply.content }}</div>
+    {% endfor %}
+{% endfor %}
+
+<form method="post" action="/post">
+    <button type="submit">post</button>
+</form>
+{% endblock %}

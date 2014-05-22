@@ -11,12 +11,16 @@ from dronelife import db
 from dronelife.models import User, Thread, Post, Reply, Topic
 from flask.ext.login import login_required, current_user, login_user, logout_user
 from flask.ext.wtf import Form
-from wtforms import TextField, PasswordField
+from wtforms import TextAreaField, TextField, PasswordField
 from wtforms.validators import DataRequired
 
 class LoginForm(Form):
     username = TextField('username', validators=[DataRequired()])
     password = PasswordField('password', validators=[DataRequired()])
+
+class NewThreadForm(Form):
+    title = TextField('title', validators=[DataRequired()])
+    content = TextAreaField('content', validators=[DataRequired()])
 
 @app.login_manager.user_loader
 def load_user(user_id):
@@ -36,14 +40,38 @@ def profile(username):
 
 @app.route('/')
 def index():
-    user = load_user(1)
-    return render_template('index.html', user=user)
+    threads = Thread.query.all()
+    form = NewThreadForm()
+
+    return render_template('index.html', form=form, threads=threads)
 
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect('/login')
+
+@app.route('/threads', methods=['POST'])
+@login_required
+def addThread():
+    form = NewThreadForm()
+    print form.data
+
+    topic = Topic.query.filter_by(id=1).first_or_404()
+
+    thread = Thread(
+        form.data['title'], 
+        form.data['content'], 
+        current_user.id, 
+        topic
+    )
+
+    db.session.add(thread)
+    db.session.commit()
+
+    thread = Thread.query.filter_by(title=thread.title).first_or_404()
+
+    return redirect('/threads/%s/%s' % (thread.id, thread.title))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width">
+{% extends "layout.html" %}
+{% block body %}
+<h1>#DRONELIFE</h1>
 
-    <title>DRONELIFE</title>
+<h4>Create a new thread</h4>
 
-    <link href="/static/stylesheets/app.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="http://fonts.googleapis.com/css?family=Mate+SC" rel="stylesheet" type="text/css">
-</head>
+<form method="post" action="/threads">
+    {{ form.title.label }}
+    {{ form.title(size=(80)) }}
 
-<body>
-    {{ user.email }}
-    <h1><a href="https://twitter.com/search/%23dronelife">#DRONELIFE</a></h1>
-</body>
-</html>
+    {{ form.content.label }}
+    {{ form.content(rows=20) }}
+    <button type="submit">post</button>
+</form>
+
+<ul class="recent-threads">
+    {% for thread in threads %}
+    <li><a href="/threads/{{ thread.id }}/{{ thread.title }}">{{ thread.title }}</a></li>
+    {% endfor %}
+{% endblock %}
