@@ -1,17 +1,66 @@
 {% extends "layout.html" %}
+{% block js %}
+<script src="http://code.jquery.com/jquery-2.1.1.min.js" /></script>
+<script>
+    $(function() {
+        $(document).on('click', '.toggle-reply', function(e) {
+            e.preventDefault();
+            $(this).parent().find('.reply-form').fadeIn('fast');
+            $(this).hide();
+        });
+
+        $(document).on('click', '.cancel-reply', function(e) {
+            e.preventDefault();
+            $(this).parent().parent().parent().find('.toggle-reply').fadeIn('fast');
+            $(this).parent().parent().fadeOut('fast');
+        });
+
+    });
+</script>
+{% endblock %}
+
 {% block body %}
 <h2>{{ thread.title }}</h2>
 <div class="og-post">{{ thread.content }}</div>
 
+<ul class="posts">
 {% for post in thread.posts %}
-    <div class="post">{{ post.content }}</div>
+    <li class="post">
+        <div class="avatar">
+            <img src="{{ post.author.avatar }}" />
+            <h6>{{ post.author.username }}</h6>
+        </div>
 
-    {% for reply in post.replies %}
-        <div class="reply">{{ reply.content }}</div>
-    {% endfor %}
+        <div class="content">{{ post.content }}</div>
+
+        <ul>
+        {% for reply in post.replies %}
+            <li class="reply">{{ reply.content }}</li>
+        {% endfor %}
+        </ul>
+
+        <button class="toggle-reply" type="button">Reply</button>
+
+        <form class="reply-form" method="post" action="/replies">
+        <fieldset>
+            <legend>Reply</legend>
+            {{ replyform.post_id(value=post.id) }}
+            {{ replyform.content(rows=20) }}
+            <button class="cancel-reply" type="button">cancel</button>
+            <button type="submit">reply</button>
+        </fieldset>
+        </form>
+    </li>
+
 {% endfor %}
+</ul>
 
-<form method="post" action="/post">
+<form method="post" action="/posts">
+<fieldset>
+    <legend>New Post</legend>
+    {{ postform.thread_id(value=thread.id) }}
+    {{ postform.content(rows=20) }}
     <button type="submit">post</button>
+</fieldset>
 </form>
 {% endblock %}

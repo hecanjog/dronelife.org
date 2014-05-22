@@ -3108,3 +3108,7 @@ body {
 h1 {
   font-family: 'Mate SC', serif;
 }
+
+.reply-form {
+  display: none;
+}

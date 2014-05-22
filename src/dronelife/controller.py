@@ -11,7 +11,7 @@ from dronelife import db
 from dronelife.models import User, Thread, Post, Reply, Topic
 from flask.ext.login import login_required, current_user, login_user, logout_user
 from flask.ext.wtf import Form
-from wtforms import TextAreaField, TextField, PasswordField
+from wtforms import TextAreaField, TextField, PasswordField, HiddenField
 from wtforms.validators import DataRequired
 
 class LoginForm(Form):
@@ -22,6 +22,14 @@ class NewThreadForm(Form):
     title = TextField('title', validators=[DataRequired()])
     content = TextAreaField('content', validators=[DataRequired()])
 
+class NewPostForm(Form):
+    thread_id = HiddenField('thread_id', validators=[DataRequired()])
+    content = TextAreaField('content', validators=[DataRequired()])
+
+class NewReplyForm(Form):
+    post_id = HiddenField('post_id', validators=[DataRequired()])
+    content = TextAreaField('content', validators=[DataRequired()])
+
 @app.login_manager.user_loader
 def load_user(user_id):
     return User.query.filter_by(id=int(user_id)).first()
@@ -29,8 +37,10 @@ def load_user(user_id):
 @app.route('/threads/<id>/<title>')
 def thread(id, title):
     thread = Thread.query.filter_by(id=id).first_or_404()
+    postform = NewPostForm()
+    replyform = NewReplyForm()
 
-    return render_template('thread.html', thread=thread)
+    return render_template('thread.html', thread=thread, postform=postform, replyform=replyform)
 
 @app.route('/<username>')
 def profile(username):
@@ -50,6 +60,47 @@ def index():
 def logout():
     logout_user()
     return redirect('/login')
+
+@app.route('/posts', methods=['POST'])
+@login_required
+def addPost():
+    form = NewPostForm()
+    thread = Thread.query.filter_by(id=form.data['thread_id']).first_or_404()
+    print form.data
+
+    post = Post(
+        form.data['content'], 
+        current_user.id, 
+        form.data['thread_id']
+    )
+
+    print post
+
+    db.session.add(post)
+    db.session.commit()
+
+    return redirect('/threads/%s/%s' % (thread.id, thread.title))
+
+@app.route('/replies', methods=['POST'])
+@login_required
+def addReply():
+    form = NewReplyForm()
+    post = Post.query.filter_by(id=form.data['post_id']).first_or_404()
+    print form.data
+
+    reply = Reply(
+        form.data['content'], 
+        current_user.id, 
+        form.data['post_id']
+    )
+
+    db.session.add(reply)
+    db.session.commit()
+
+    thread = Thread.query.filter_by(id=post.thread_id).first_or_404()
+
+    return redirect('/threads/%s/%s' % (thread.id, thread.title))
+
 
 @app.route('/threads', methods=['POST'])
 @login_required

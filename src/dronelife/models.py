@@ -30,8 +30,10 @@ class Thread(db.Model):
     posted = db.Column(db.DateTime)
     edited = db.Column(db.DateTime)
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    author = db.relationship('User', backref=db.backref('thread'))
     locked = db.Column(db.Boolean)
     flagged = db.Column(db.Boolean)
+    posts = db.relationship('Post', backref=db.backref('thread'))
 
     topic_id = db.Column(db.Integer, db.ForeignKey('topic.id'))
     topic = db.relationship('Topic', backref=db.backref('threads', lazy='dynamic'))
@@ -64,13 +66,15 @@ class Post(db.Model):
     posted = db.Column(db.DateTime)
     edited = db.Column(db.DateTime)
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    author = db.relationship('User', backref=db.backref('post'))
     thread_id = db.Column(db.Integer, db.ForeignKey('thread.id'))
     replies = db.relationship('Reply', backref=db.backref('post'))
 
-    def __init__(self, content, author_id):
-        self.content = content 
+    def __init__(self, content, author_id, thread_id):
+        self.content = parse_raw(content) 
         self.posted = datetime.utcnow()
         self.author_id = author_id
+        self.thread_id = thread_id
 
     def __repr__(self):
         return '<Post %s>' % self.raw_content
@@ -89,10 +93,11 @@ class Reply(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
-    def __init__(self, content, author_id):
-        self.content = content 
+    def __init__(self, content, author_id, post_id):
+        self.content = parse_raw(content)
         self.posted = datetime.utcnow()
         self.author_id = author_id
+        self.post_id = post_id
 
     def __repr__(self):
         return '<Reply %s>' % self.raw_content
