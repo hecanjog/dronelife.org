@@ -8,7 +8,7 @@ from flask import abort
 
 from dronelife import app
 from dronelife import db
-from dronelife.models import User
+from dronelife.models import User, Thread, Post, Reply, Topic
 from flask.ext.login import login_required, current_user, login_user, logout_user
 from flask.ext.wtf import Form
 from wtforms import TextField, PasswordField
@@ -22,11 +22,15 @@ class LoginForm(Form):
 def load_user(user_id):
     return User.query.filter_by(id=int(user_id)).first()
 
+@app.route('/threads/<id>/<title>')
+def thread(id, title):
+    thread = Thread.query.filter_by(id=id).first_or_404()
+
+    return render_template('thread.html', thread=thread)
+
 @app.route('/<username>')
 def profile(username):
-    user = User.query.filter_by(username=username).first()
-    if user is None:
-        abort(404)
+    user = User.query.filter_by(username=username).first_or_404()
 
     return render_template('profile.html', user=user)
 
