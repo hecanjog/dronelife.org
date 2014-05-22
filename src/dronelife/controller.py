@@ -30,6 +30,16 @@ class NewReplyForm(Form):
     post_id = HiddenField('post_id', validators=[DataRequired()])
     content = TextAreaField('content', validators=[DataRequired()])
 
+class ProfileForm(Form):
+    username = TextField('username', validators=[DataRequired()])
+    email = TextField('email', validators=[DataRequired()])
+    website = TextField('website', validators=[DataRequired()])
+    twitter = TextField('twitter', validators=[DataRequired()])
+    facebook = TextField('facebook', validators=[DataRequired()])
+    bandcamp = TextField('bandcamp', validators=[DataRequired()])
+    soundcloud = TextField('soundcloud', validators=[DataRequired()])
+
+
 @app.login_manager.user_loader
 def load_user(user_id):
     return User.query.filter_by(id=int(user_id)).first()
@@ -45,8 +55,13 @@ def thread(id, title):
 @app.route('/<username>')
 def profile(username):
     user = User.query.filter_by(username=username).first_or_404()
+    form = ProfileForm()
 
-    return render_template('profile.html', user=user)
+    return render_template('profile.html', user=user, form=form)
+
+@app.route('/profile')
+def profileRedirect():
+    return redirect('/'+current_user.username)
 
 @app.route('/')
 def index():

@@ -1,1 +1,39 @@
-{{ user }}
+{% extends "layout.html" %}
+{% block body %}
+<form method="post" action="/profile">
+<fieldset>
+    <legend>Profile</legend>
+    {{ form.username.label }}
+    {{ form.username(value=user.username) }}
+
+    {{ form.email.label }}
+    {{ form.email(value=user.email) }}
+
+    {{ form.website.label }}
+    {{ form.website(value=user.website) }}
+
+    {{ form.twitter.label }}
+    {{ form.twitter(value=user.twitter) }}
+
+    {{ form.facebook.label }}
+    {{ form.facebook(value=user.facebook) }}
+
+    {{ form.bandcamp.label }}
+    {{ form.bandcamp(value=user.bandcamp) }}
+
+    {{ form.soundcloud.label }}
+    {{ form.soundcloud(value=user.soundcloud) }}
+
+    <button type="submit">save</button>
+</fieldset>
+</form>
+
+{% for topic in topics %}
+<h5>{{ topic.content }}</h5>
+<ul class="recent-threads">
+    {% for thread in topic.threads %}
+    <li><a href="/threads/{{ thread.id }}/{{ thread.title }}">{{ thread.title }}</a></li>
+    {% endfor %}
+</ul>
+{% endfor %}
+{% endblock %}

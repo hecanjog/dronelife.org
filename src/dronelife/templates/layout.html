@@ -10,5 +10,12 @@
     <link href="http://fonts.googleapis.com/css?family=Mate+SC" rel="stylesheet" type="text/css">
 </head>
 
-<body>{% block body %}{% endblock %}{% block js %}{% endblock %}</body>
+<body>
+{% block header %}
+<header>
+    <a href="/">Home</a>
+    <a href="/profile">Profile</a>
+</header>
+{% endblock %}
+{% block body %}{% endblock %}{% block js %}{% endblock %}</body>
 </html>
