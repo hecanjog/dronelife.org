@@ -27,6 +27,8 @@ if __name__ == '__main__':
         app.run()
 
     if args['bootstrap'] == True:
+        db.session.commit()
+        db.drop_all()
         test_user = m.User('test', 'test@example.com', 'password', is_admin=True, is_moderator=True)
         db.session.add(test_user)
         db.create_all()
