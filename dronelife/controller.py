@@ -40,6 +40,7 @@ class ProfileForm(Form):
     username = TextField('username', validators=[DataRequired()])
     email = TextField('email', validators=[DataRequired()])
     website = TextField('website', validators=[DataRequired()])
+    description = TextAreaField('description', validators=[DataRequired()])
     twitter = TextField('twitter', validators=[DataRequired()])
     facebook = TextField('facebook', validators=[DataRequired()])
     bandcamp = TextField('bandcamp', validators=[DataRequired()])

@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
+{% if current_user.is_authenticated() and current_user.username == user.username %}
 <form method="post" action="/profile">
 <fieldset>
     <legend>Profile</legend>
@@ -11,6 +12,9 @@
 
     {{ form.website.label }}
     {{ form.website(value=user.website) }}
+
+    {{ form.description.label }}
+    {{ form.description(value=user.description) }}
 
     {{ form.twitter.label }}
     {{ form.twitter(value=user.twitter) }}
@@ -27,13 +31,8 @@
     <button type="submit">save</button>
 </fieldset>
 </form>
-
-{% for topic in topics %}
-<h5>{{ topic.content }}</h5>
-<ul class="recent-threads">
-    {% for thread in topic.threads %}
-    <li><a href="/threads/{{ thread.id }}/{{ thread.title }}">{{ thread.title }}</a></li>
-    {% endfor %}
-</ul>
-{% endfor %}
+{% else %}
+<h3>{{ user.username }}</h3>
+<div class="profile-description">{{ user.description }}</div>
+{% endif %}
 {% endblock %}
