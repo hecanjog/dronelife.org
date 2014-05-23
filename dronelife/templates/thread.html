@@ -41,6 +41,7 @@
                 {% endfor %}
                 </ul>
 
+                {% if current_user.is_authenticated() %}
                 <button class="toggle-reply" type="button">Reply</button>
 
                 <form class="reply-form" method="post" action="/replies">
@@ -49,21 +50,24 @@
                     {{ replyform.post_id(value=post.id) }}
                     {{ replyform.content(rows=20) }}
                     <button class="cancel-reply" type="button">cancel</button>
-                    <button type="submit">reply</button>
+                    <button type="submit">Reply</button>
                 </fieldset>
                 </form>
+                {% endif %}
         </div>
     </li>
 
 {% endfor %}
 </ul>
 
+{% if current_user.is_authenticated() %}
 <form method="post" action="/posts">
 <fieldset>
-    <legend>New Post</legend>
+    <legend>Reply</legend>
     {{ postform.thread_id(value=thread.id) }}
     {{ postform.content(rows=20) }}
-    <button type="submit">post</button>
+    <button type="submit">Reply</button>
 </fieldset>
 </form>
+{% endif %}
 {% endblock %}
