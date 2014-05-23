@@ -18,6 +18,11 @@ class LoginForm(Form):
     username = TextField('username', validators=[DataRequired()])
     password = PasswordField('password', validators=[DataRequired()])
 
+class RegisterForm(Form):
+    username = TextField('username', validators=[DataRequired()])
+    email = TextField('email', validators=[DataRequired()])
+    password = PasswordField('password', validators=[DataRequired()])
+
 class NewThreadForm(Form):
     title = TextField('Title', validators=[DataRequired()])
     content = TextAreaField('Body', validators=[DataRequired()])
@@ -122,6 +127,30 @@ def addReply():
 
     return redirect(thread.getUrl())
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated():
+        return redirect('/')
+
+    form = RegisterForm() 
+
+    if form.validate_on_submit():
+        user = User(
+            form.data['username'],
+            form.data['email'],
+            form.data['password']
+        )
+
+        db.session.add(user)
+        db.session.commit()
+
+        user = User.query.filter_by(username=form.data['username']).first()
+
+        login_user(user)
+
+        return redirect('/profile')
+
+    return render_template('register.html', form=form)
 
 @app.route('/threads', methods=['POST'])
 @login_required
@@ -152,7 +181,6 @@ def login():
         user = User.query.filter_by(username=form.data['username']).first()
         if user is not None and user.check_hash(form.data['password']) == True:
             login_user(user)
-            flash('Howdy!')
 
             return redirect(request.args.get('next') or url_for('index'))
 
