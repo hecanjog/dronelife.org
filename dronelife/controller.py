@@ -67,9 +67,10 @@ def profileRedirect():
 @app.route('/')
 def index():
     form = NewThreadForm()
-    form.topic_id.choices = [ (topic.id, topic.content) for topic in Topic.query.all() ]
+    topics = Topic.query.all()
+    form.topic_id.choices = [ (topic.id, topic.content) for topic in topics ]
 
-    return render_template('index.html', form=form)
+    return render_template('index.html', form=form, topics=topics)
 
 @app.route('/about')
 def about():
