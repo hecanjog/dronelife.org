@@ -11,7 +11,7 @@ from dronelife import db
 from dronelife.models import User, Thread, Post, Reply, Topic
 from flask.ext.login import login_required, current_user, login_user, logout_user
 from flask.ext.wtf import Form
-from wtforms import TextAreaField, TextField, PasswordField, HiddenField
+from wtforms import TextAreaField, TextField, PasswordField, HiddenField, SelectField
 from wtforms.validators import DataRequired
 
 class LoginForm(Form):
@@ -19,8 +19,10 @@ class LoginForm(Form):
     password = PasswordField('password', validators=[DataRequired()])
 
 class NewThreadForm(Form):
-    title = TextField('title', validators=[DataRequired()])
-    content = TextAreaField('content', validators=[DataRequired()])
+    title = TextField('Title', validators=[DataRequired()])
+    content = TextAreaField('Body', validators=[DataRequired()])
+    topics = [ (topic.id, topic.content) for topic in Topic.query.all() ]
+    topic_id = SelectField('Topic', choices=topics, validators=[DataRequired()])
 
 class NewPostForm(Form):
     thread_id = HiddenField('thread_id', validators=[DataRequired()])
@@ -127,7 +129,7 @@ def addThread():
     form = NewThreadForm()
     print form.data
 
-    topic = Topic.query.filter_by(id=1).first_or_404()
+    topic = Topic.query.filter_by(id=form.data['topic_id']).first()
 
     thread = Thread(
         form.data['title'], 

@@ -21,7 +21,7 @@ class Topic(db.Model):
         self.posted = datetime.utcnow()
 
     def __repr__(self):
-        return '<Topic %s>' % self.title
+        return '<Topic %s>' % self.content
 
 class Thread(db.Model):
     id = db.Column(db.Integer, primary_key=True)
