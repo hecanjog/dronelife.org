@@ -2,6 +2,7 @@
 {% block body %}
 <h1>#DRONELIFE</h1>
 
+{% if current_user.is_authenticated() %}
 <form method="post" action="/threads">
 <fieldset>
     <legend>New Thread</legend>
@@ -15,6 +16,7 @@
     <button type="submit">post</button>
 </fieldset>
 </form>
+{% endif %}
 
 {% for topic in topics %}
 <h5>{{ topic.content }}</h5>
