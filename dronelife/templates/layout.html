@@ -16,10 +16,11 @@
     <a href="/">Home</a>
     <a href="/profile">Profile</a>
 
-    {% if current_user.is_authenticated %}
+    {% if current_user.is_authenticated() %}
         <a href="/logout">Logout</a>
     {% else %}
         <a href="/login">Login</a>
+        <a href="/register">Register</a>
     {% endif %}
 </header>
 {% endblock %}
