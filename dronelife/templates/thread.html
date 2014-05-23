@@ -21,7 +21,7 @@
 
 {% block body %}
 <h2>{{ thread.title }}</h2>
-<div class="og-post">{{ thread.content }}</div>
+<div class="og-post">{{ thread.content | safe }}</div>
 
 <ul class="posts">
 {% for post in thread.posts %}
@@ -32,12 +32,11 @@
         </div>
 
         <div class="content-wrapper">
-
-                <div class="content">{{ post.content }}</div>
+                <div class="content">{{ post.content | safe }}</div>
 
                 <ul>
                 {% for reply in post.replies %}
-                    <li class="reply">{{ reply.content }}</li>
+                    <li class="reply">{{ reply.content | safe }}</li>
                 {% endfor %}
                 </ul>
 

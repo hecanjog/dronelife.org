@@ -15,6 +15,8 @@ setup(
         'flask-login',
         'flask-bcrypt',
         'docopt',
+        'markdown',
+        'mdx_linkify',
     ],
     scripts=['bin/dronelife'],
     zip_safe=False,

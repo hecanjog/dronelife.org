@@ -4,12 +4,12 @@ from flask.ext.bcrypt import Bcrypt
 import random
 from dronelife import app
 import urllib
+from markdown import markdown
 
 bcrypt = Bcrypt(app)
 
 def parse_raw(content):
-    """ TODO: add smileys, embeds, markdown, etc """
-    return content
+    return markdown(content, safe_mode='remove', extensions=['footnotes', 'sane_lists', 'tables', 'linkify'])
 
 class Topic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -41,7 +41,8 @@ class Thread(db.Model):
 
     def __init__(self, title, content, author_id, topic, locked=False, flagged=False):
         self.title = title
-        self.content = content 
+        self.raw_content = content
+        self.content = parse_raw(content)
         self.posted = datetime.utcnow()
         self.author_id = author_id
         self.topic = topic
@@ -53,7 +54,7 @@ class Thread(db.Model):
 
     def setContent(self, content):
         self.raw_content = content
-        self.content = content # add smileys, embeds, markdown, etc
+        self.content = parse_raw(content)
         self.edited = datetime.utcnow()
 
     def setTitle(self, title):
@@ -75,6 +76,7 @@ class Post(db.Model):
     replies = db.relationship('Reply', backref=db.backref('post'))
 
     def __init__(self, content, author_id, thread_id):
+        self.raw_content = content
         self.content = parse_raw(content) 
         self.posted = datetime.utcnow()
         self.author_id = author_id
@@ -98,6 +100,7 @@ class Reply(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
     def __init__(self, content, author_id, post_id):
+        self.raw_content = content
         self.content = parse_raw(content)
         self.posted = datetime.utcnow()
         self.author_id = author_id
