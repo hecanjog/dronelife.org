@@ -67,13 +67,8 @@ def profileRedirect():
 
 @app.route('/')
 def index():
-    topics = Topic.query.all()
-    if topics is None:
-        topics = []
-
     form = NewThreadForm()
-
-    return render_template('index.html', form=form, topics=topics)
+    return render_template('index.html', form=form)
 
 @app.route('/about')
 def about():
