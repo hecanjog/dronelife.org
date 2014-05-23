@@ -21,8 +21,7 @@ class LoginForm(Form):
 class NewThreadForm(Form):
     title = TextField('Title', validators=[DataRequired()])
     content = TextAreaField('Body', validators=[DataRequired()])
-    topics = [ (topic.id, topic.content) for topic in Topic.query.all() ]
-    topic_id = SelectField('Topic', choices=topics, validators=[DataRequired()])
+    topic_id = SelectField('Topic', validators=[DataRequired()])
 
 class NewPostForm(Form):
     thread_id = HiddenField('thread_id', validators=[DataRequired()])
@@ -68,6 +67,8 @@ def profileRedirect():
 @app.route('/')
 def index():
     form = NewThreadForm()
+    form.topic_id.choices = [ (topic.id, topic.content) for topic in Topic.query.all() ]
+
     return render_template('index.html', form=form)
 
 @app.route('/about')

@@ -29,8 +29,21 @@ if __name__ == '__main__':
     if args['bootstrap'] == True:
         db.session.commit()
         db.drop_all()
-        test_user = m.User('test', 'test@example.com', 'password', is_admin=True, is_moderator=True)
-        db.session.add(test_user)
         db.create_all()
-        db.session.commit()
 
+        superuser = m.User(app.config['SUPERUSER_USERNAME'], app.config['SUPERUSER_EMAIL'], app.config['SUPERUSER_PASSWORD'], is_admin=True, is_moderator=True)
+        db.session.add(superuser)
+
+        topics = [
+            'the drone life',
+            'releases & promo',
+            'performance',
+            'theory & history',
+            'shop talk',
+        ]
+
+        for topic in topics:
+            topic = m.Topic(topic)
+            db.session.add(topic)
+
+        db.session.commit()
