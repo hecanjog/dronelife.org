@@ -507,6 +507,31 @@ button.disabled.alert:hover, button.disabled.alert:focus, button[disabled].alert
   overflow: hidden;
 }
 
+.flex-video {
+  position: relative;
+  padding-top: 1.5625rem;
+  padding-bottom: 67.5%;
+  height: 0;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+.flex-video.widescreen {
+  padding-bottom: 56.55%;
+}
+.flex-video.vimeo {
+  padding-top: 0;
+}
+.flex-video iframe,
+.flex-video object,
+.flex-video embed,
+.flex-video video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 /* Standard Forms */
 form {
   margin: 0 0 1rem;
@@ -3099,6 +3124,106 @@ th.hide-for-touch {
 
 .touch th.show-for-touch {
   display: table-cell !important;
+}
+
+@font-face {
+  font-family: 'dronelife';
+  src: url("/static/scss/emoji/fonts/dronelife.eot?9xl238");
+  src: url("/static/scss/emoji/fonts/dronelife.eot?#iefix9xl238") format("embedded-opentype"), url("/static/scss/emoji/fonts/dronelife.woff?9xl238") format("woff"), url("/static/scss/emoji/fonts/dronelife.ttf?9xl238") format("truetype"), url("/static/scss/emoji/fonts/dronelife.svg?9xl238#dronelife") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="dronelife-"], [class*=" dronelife-"] {
+  font-family: 'dronelife';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dronelife-bell:before {
+  content: "\e600";
+}
+
+.dronelife-coffee {
+  color: brown;
+}
+
+.dronelife-coffee:before {
+  content: "\e601";
+}
+
+.dronelife-smile:before {
+  content: "\e602";
+}
+
+.dronelife-grin:before {
+  content: "\e603";
+}
+
+.dronelife-taunt:before {
+  content: "\e604";
+}
+
+.dronelife-sad:before {
+  content: "\e605";
+}
+
+.dronelife-wink:before {
+  content: "\e606";
+}
+
+.dronelife-beam:before {
+  content: "\e607";
+}
+
+.dronelife-cool:before {
+  content: "\e608";
+}
+
+.dronelife-wat:before {
+  content: "\e60b";
+}
+
+.dronelife-um:before {
+  content: "\e60c";
+}
+
+.dronelife-oh:before {
+  content: "\e60d";
+}
+
+.dronelife-huh:before {
+  content: "\e60e";
+}
+
+.dronelife-email:before {
+  content: "\e60f";
+}
+
+.dronelife-googleplus:before {
+  content: "\e610";
+}
+
+.dronelife-facebook:before {
+  content: "\e611";
+}
+
+.dronelife-twitter:before {
+  content: "\e612";
+}
+
+.dronelife-github:before {
+  content: "\e613";
+}
+
+.dronelife-soundcloud:before {
+  content: "\e614";
 }
 
 body {
