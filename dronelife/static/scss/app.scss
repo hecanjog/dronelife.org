@@ -59,10 +59,19 @@ a {
     margin-top: 10px;
 }
 
-.og-post {
+.og-post-wrapper {
+    @include grid-row();
+    margin: 0;
+    max-width: none;
+
     border: 1px solid #aaa;
     padding: 10px;
     background-color: #fafafa;
+
+    .og-post {
+        @include grid-column(10);
+        padding: 10px;
+    }
 }
 
 .post {
@@ -72,22 +81,22 @@ a {
     padding: 0;
     max-width: none;
 
-    .user-wrapper {
-        @include grid-column(2);
-        padding: 0;
-        padding-right: 10px;
-
-        .avatar {
-            width: 100%;
-            min-height: 40px; // just for testing
-            border: 1px solid #ddd;
-        }
-    }
-
     .content-wrapper {
         padding: 10px;
         border: 1px solid #ddd;
         @include grid-column(10);
+    }
+}
+
+.user-wrapper {
+    @include grid-column(2);
+    padding: 0;
+    padding-right: 10px;
+
+    .avatar {
+        width: 100%;
+        min-height: 40px; // just for testing
+        border: 1px solid #ddd;
     }
 }
 

@@ -3119,10 +3119,33 @@ h1 {
   margin-top: 10px;
 }
 
-.og-post {
+.og-post-wrapper {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  max-width: 62.5rem;
+  *zoom: 1;
+  margin: 0;
+  max-width: none;
   border: 1px solid #aaa;
   padding: 10px;
   background-color: #fafafa;
+}
+.og-post-wrapper:before, .og-post-wrapper:after {
+  content: " ";
+  display: table;
+}
+.og-post-wrapper:after {
+  clear: both;
+}
+.og-post-wrapper .og-post {
+  padding-left: 0.9375rem;
+  padding-right: 0.9375rem;
+  width: 83.33333%;
+  float: left;
+  padding: 10px;
 }
 
 .post {
@@ -3144,19 +3167,6 @@ h1 {
 .post:after {
   clear: both;
 }
-.post .user-wrapper {
-  padding-left: 0.9375rem;
-  padding-right: 0.9375rem;
-  width: 16.66667%;
-  float: left;
-  padding: 0;
-  padding-right: 10px;
-}
-.post .user-wrapper .avatar {
-  width: 100%;
-  min-height: 40px;
-  border: 1px solid #ddd;
-}
 .post .content-wrapper {
   padding: 10px;
   border: 1px solid #ddd;
@@ -3164,4 +3174,18 @@ h1 {
   padding-right: 0.9375rem;
   width: 83.33333%;
   float: left;
+}
+
+.user-wrapper {
+  padding-left: 0.9375rem;
+  padding-right: 0.9375rem;
+  width: 16.66667%;
+  float: left;
+  padding: 0;
+  padding-right: 10px;
+}
+.user-wrapper .avatar {
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid #ddd;
 }

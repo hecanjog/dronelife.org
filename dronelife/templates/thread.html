@@ -21,14 +21,25 @@
 
 {% block body %}
 <h2>{{ thread.title }}</h2>
-<div class="og-post">{{ thread.content | safe }}</div>
+<div class="og-post-wrapper">
+    <div class="user-wrapper">
+        <img class="avatar" src="{{ thread.author.avatar }}" />
+        <p>Posted by <a href="/{{ thread.author.username }}">{{ thread.author.username }}</a> 
+        on {{ thread.posted.strftime('%A, %B %d %Y %I:%M%p')  }}
+        </p>
+    </div>
+
+    <div class="og-post">{{ thread.content | safe }}</div>
+</div>
 
 <ul class="posts">
 {% for post in thread.posts %}
     <li class="post">
         <div class="user-wrapper">
             <img class="avatar" src="{{ post.author.avatar }}" />
-            <p>Posted by <a href="/{{ post.author.username }}">{{ post.author.username }}</a></p>
+            <p>Posted by <a href="/{{ post.author.username }}">{{ post.author.username }}</a>
+            on {{ post.posted.strftime('%A, %B %d %Y %I:%M%p')  }}
+            </p>
         </div>
 
         <div class="content-wrapper">
