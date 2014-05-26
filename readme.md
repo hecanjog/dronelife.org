@@ -7,7 +7,7 @@ The new dronelife.org forums
 ### Database setup
 
 First, install postgresql
-    
+
 Switch to the postgres user (this will be created when postgres is installed)
 
     $ sudo su - postgres
@@ -33,14 +33,14 @@ Create a new 'dronelife' database giving read/write permission to the dronelife 
 Set the sqlalchemy connection uri environment variable by adding the following to your .bashrc (replacing password with the password you set for your user!)
 
     export DRONELIFE_SQLALCHEMY_DATABASE_URI='postgresql://dronelife:password@localhost/dronelife'
-    
+
 To import the database schema and bootstrap it with example data, run:
 
     dronelife bootstrap
 
 ### Foundation setup
 
-Dronelife.org uses the super rad foundation SASS framework as a base for stylesheets. To do SASS work, first make sure you have 
+Dronelife.org uses the super rad foundation Sass framework as a base for stylesheets. To do Sass work, first make sure you have
 ruby, node.js and the node package manager (npm) installed, then install foundation and its dependencies.
 
     sudo npm install -g bower grunt-cli
@@ -55,7 +55,7 @@ Then, from the root project directory, run
 
 To pull down foundation assets with bower.
 
-To start automatically compiling SASS into CSS, from the root project directory run
+To start automatically compiling Sass into CSS, from the root project directory run
 
     compass watch
 
@@ -74,4 +74,3 @@ To run the app in development mode, from anywhere just:
     dronelife dev
 
 Which will start a local server. The site will be accessable from `http://127.0.0.1:5000`
-
