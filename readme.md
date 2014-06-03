@@ -34,6 +34,12 @@ Set the sqlalchemy connection uri environment variable by adding the following t
 
     export DRONELIFE_SQLALCHEMY_DATABASE_URI='postgresql://dronelife:password@localhost/dronelife'
 
+As well as info for the first user account:
+
+    export DRONELIFE_SUPERUSER_USERNAME='myusername'
+    export DRONELIFE_SUPERUSER_EMAIL='me@myemail.com'
+    export DRONELIFE_SUPERUSER_PASSWORD='a-super-duper-secret'
+
 To import the database schema and bootstrap it with example data, run:
 
     dronelife bootstrap
@@ -69,7 +75,11 @@ To install dronelife globally, from the project root run:
 
 Which will install dronelife in 'develop' mode, which lets you hack on the code without having to reinstall the module on every change.
 
-To run the app in development mode, from anywhere just:
+Be sure to add a secret key to your .bashrc which the app will use to seed random numbers.
+
+    export DRONELIFE_SECRET_KEY='any-old-thing-should-do'
+
+Then, to run the app in development mode, from anywhere just:
 
     dronelife dev
 
