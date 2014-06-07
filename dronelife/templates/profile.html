@@ -4,6 +4,7 @@
 <form method="post" action="/profile">
 <fieldset>
     <legend>Profile</legend>
+    {{ form.csrf_token }}
     {{ form.username.label }}
     {{ form.username(value=user.username) }}
 

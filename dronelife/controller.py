@@ -1,79 +1,47 @@
-from flask import Flask
-from flask import render_template
-from flask import redirect
-from flask import request
-from flask import url_for
-from flask import flash
-from flask import abort
-
-from dronelife import app
-from dronelife import db
-from dronelife.models import User, Thread, Post, Reply, Topic
+from flask import Flask, render_template, redirect, request, url_for, flash, abort
 from flask.ext.login import login_required, current_user, login_user, logout_user
-from flask.ext.wtf import Form
-from wtforms import TextAreaField, TextField, PasswordField, HiddenField, SelectField
-from wtforms.validators import DataRequired
-
-class LoginForm(Form):
-    username = TextField('username', validators=[DataRequired()])
-    password = PasswordField('password', validators=[DataRequired()])
-
-class RegisterForm(Form):
-    username = TextField('username', validators=[DataRequired()])
-    email = TextField('email', validators=[DataRequired()])
-    password = PasswordField('password', validators=[DataRequired()])
-
-class NewThreadForm(Form):
-    title = TextField('Title', validators=[DataRequired()])
-    content = TextAreaField('Body', validators=[DataRequired()])
-    topic_id = SelectField('Topic', validators=[DataRequired()])
-
-class NewPostForm(Form):
-    thread_id = HiddenField('thread_id', validators=[DataRequired()])
-    content = TextAreaField('content', validators=[DataRequired()])
-
-class NewReplyForm(Form):
-    post_id = HiddenField('post_id', validators=[DataRequired()])
-    content = TextAreaField('content', validators=[DataRequired()])
-
-class ProfileForm(Form):
-    username = TextField('username', validators=[DataRequired()])
-    email = TextField('email', validators=[DataRequired()])
-    website = TextField('website', validators=[DataRequired()])
-    description = TextAreaField('description', validators=[DataRequired()])
-    twitter = TextField('twitter', validators=[DataRequired()])
-    facebook = TextField('facebook', validators=[DataRequired()])
-    bandcamp = TextField('bandcamp', validators=[DataRequired()])
-    soundcloud = TextField('soundcloud', validators=[DataRequired()])
-
+from dronelife import app, db, forms, models
 
 @app.login_manager.user_loader
 def load_user(user_id):
-    return User.query.filter_by(id=int(user_id)).first()
+    return models.User.query.filter_by(id=int(user_id)).first()
 
 @app.route('/threads/<id>/<title>')
 def thread(id, title):
-    thread = Thread.query.filter_by(id=id).first_or_404()
-    postform = NewPostForm()
-    replyform = NewReplyForm()
+    thread = models.Thread.query.filter_by(id=id).first_or_404()
+    postform = forms.NewPostForm()
+    replyform = forms.NewReplyForm()
 
     return render_template('thread.html', thread=thread, postform=postform, replyform=replyform)
 
 @app.route('/<username>')
 def profile(username):
-    user = User.query.filter_by(username=username).first_or_404()
-    form = ProfileForm()
+    user = models.User.query.filter_by(username=username).first_or_404()
+    form = forms.ProfileForm()
 
     return render_template('profile.html', user=user, form=form)
 
-@app.route('/profile')
+@app.route('/profile', methods=['GET', 'POST'])
 def profileRedirect():
+    form = forms.ProfileForm()
+
+    if form.validate_on_submit():
+        # update profile
+        user = models.User.query.filter_by(username=form.data['username']).first()
+        print user.website
+        for attr, value in form.data.iteritems():
+            setattr(user, attr, value)
+
+        db.session.commit()
+    else:
+        print form.errors
+
     return redirect('/'+current_user.username)
 
 @app.route('/')
 def index():
-    form = NewThreadForm()
-    topics = Topic.query.all()
+    form = forms.NewThreadForm()
+    topics = models.Topic.query.all()
     form.topic_id.choices = [ (topic.id, topic.content) for topic in topics ]
 
     return render_template('index.html', form=form, topics=topics)
@@ -91,11 +59,11 @@ def logout():
 @app.route('/posts', methods=['POST'])
 @login_required
 def addPost():
-    form = NewPostForm()
-    thread = Thread.query.filter_by(id=form.data['thread_id']).first_or_404()
+    form = forms.NewPostForm()
+    thread = models.Thread.query.filter_by(id=form.data['thread_id']).first_or_404()
     print form.data
 
-    post = Post(
+    post = models.Post(
         form.data['content'], 
         current_user.id, 
         form.data['thread_id']
@@ -111,11 +79,11 @@ def addPost():
 @app.route('/replies', methods=['POST'])
 @login_required
 def addReply():
-    form = NewReplyForm()
-    post = Post.query.filter_by(id=form.data['post_id']).first_or_404()
+    form = forms.NewReplyForm()
+    post = models.Post.query.filter_by(id=form.data['post_id']).first_or_404()
     print form.data
 
-    reply = Reply(
+    reply = models.Reply(
         form.data['content'], 
         current_user.id, 
         form.data['post_id']
@@ -124,7 +92,7 @@ def addReply():
     db.session.add(reply)
     db.session.commit()
 
-    thread = Thread.query.filter_by(id=post.thread_id).first_or_404()
+    thread = models.Thread.query.filter_by(id=post.thread_id).first_or_404()
 
     return redirect(thread.getUrl())
 
@@ -133,10 +101,10 @@ def register():
     if current_user.is_authenticated():
         return redirect('/')
 
-    form = RegisterForm() 
+    form = forms.RegisterForm() 
 
     if form.validate_on_submit():
-        user = User(
+        user = models.User(
             form.data['username'],
             form.data['email'],
             form.data['password']
@@ -145,7 +113,7 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        user = User.query.filter_by(username=form.data['username']).first()
+        user = modles.User.query.filter_by(username=form.data['username']).first()
 
         login_user(user)
 
@@ -156,12 +124,12 @@ def register():
 @app.route('/threads', methods=['POST'])
 @login_required
 def addThread():
-    form = NewThreadForm()
+    form = forms.NewThreadForm()
     print form.data
 
-    topic = Topic.query.filter_by(id=form.data['topic_id']).first()
+    topic = models.Topic.query.filter_by(id=form.data['topic_id']).first()
 
-    thread = Thread(
+    thread = models.Thread(
         form.data['title'], 
         form.data['content'], 
         current_user.id, 
@@ -171,15 +139,15 @@ def addThread():
     db.session.add(thread)
     db.session.commit()
 
-    thread = Thread.query.filter_by(title=thread.title).first_or_404()
+    thread = models.Thread.query.filter_by(title=thread.title).first_or_404()
 
     return redirect(thread.getUrl())
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
+    form = forms.LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.data['username']).first()
+        user = models.User.query.filter_by(username=form.data['username']).first()
         if user is not None and user.check_hash(form.data['password']) == True:
             login_user(user)
 
