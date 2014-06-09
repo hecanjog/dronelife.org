@@ -19,6 +19,8 @@ def profile(username):
     user = models.User.query.filter_by(username=username).first_or_404()
     form = forms.ProfileForm()
 
+    print form.description
+
     return render_template('profile.html', user=user, form=form)
 
 @app.route('/profile', methods=['GET', 'POST'])

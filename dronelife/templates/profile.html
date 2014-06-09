@@ -15,7 +15,8 @@
     {{ form.website(value=user.website) }}
 
     {{ form.description.label }}
-    {{ form.description(value=user.description) }}
+    {% set f = form.description.process_data(user.description) %}
+    {{ form.description() }}
 
     {{ form.twitter.label }}
     {{ form.twitter(value=user.twitter) }}
@@ -32,8 +33,16 @@
     <button type="submit">save</button>
 </fieldset>
 </form>
-{% else %}
-<h3>{{ user.username }}</h3>
-<div class="profile-description">{{ user.description }}</div>
 {% endif %}
+
+    <h3>{{ user.username }}</h3>
+
+    {% if user.description %}
+        <div class="profile-description">{{ user.description }}</div>
+    {% endif %}
+
+    {% if user.twitter %}
+        <div class="profile-twitter">{{ user.twitter }}</div>
+    {% endif %}
+
 {% endblock %}
