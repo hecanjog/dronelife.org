@@ -10,20 +10,79 @@
    "foundation/components/visibility",
    "emoji/emoji";
 
+$main-base: darken(#F00, 5%);
+$main-width: 900px;
+
 body {
-    padding: 10px;
+    padding: 0;
+    background-color: darken(#00F, 10%);
+    background-image: url('/static/img/ellen1.png');
+    background-size: cover;
 }
 
-h1 {
-    font-family: 'Mate SC', serif;
+h1, h2 {
+    color: #fff;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+h4, h5 {
+    color: #fff;
+    margin: 5px 0;
+    margin-top: 40px;
+    padding: 10px;
+    font-weight: bold;
 }
 
 a {
 
 }
 
+header {
+    $nav-base: $main-base;
+    width: $main-width;
+    margin: 0 auto;
+
+    a {
+        display: inline-block;
+        background-color: darken($nav-base, 2%);
+        color: #fff;
+        padding: 10px;
+        margin: 0 5px 0 0;
+        font-weight: bold;
+        text-transform: lowercase;
+    }
+}
+
+.main-wrapper {
+    width: $main-width;
+    margin: 0 auto;
+}
+
+.recent-threads {
+    list-style-type: none;
+    margin: 0;
+    
+    .recent-thread {
+        margin: 5px 0;
+        background-color: $main-base;
+
+        a {
+            display: block;
+            padding: 10px;
+            color: #fff;
+        }
+    }
+}
+
 .reply-form {
     display: none;
+}
+
+.og-post-wrapper, .posts {
+    h1, h2, h3, h4, h5, h6 {
+        color: #333;
+    }
 }
 
 .posts {
@@ -37,7 +96,6 @@ a {
     margin: 0;
     max-width: none;
 
-    border: 1px solid #aaa;
     padding: 10px;
     background-color: #fafafa;
 
@@ -56,8 +114,16 @@ a {
 
     .content-wrapper {
         padding: 10px;
-        border: 1px solid #ddd;
+        background-color: #fafafa;
         @include grid-column(10);
+    }
+
+    .user-wrapper {
+        font-weight: bold;
+
+        p {
+            color: #fff;
+        }
     }
 }
 
@@ -66,7 +132,12 @@ a {
     padding: 0;
     padding-right: 10px;
 
+    p {
+        font-size: 12px;
+    }
+
     .avatar {
+        display: none;
         width: 100%;
         min-height: 40px; // just for testing
         border: 1px solid #ddd;

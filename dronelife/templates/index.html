@@ -1,7 +1,5 @@
 {% extends "layout.html" %}
 {% block body %}
-<h1>#DRONELIFE</h1>
-
 {% if current_user.is_authenticated() %}
 <form method="post" action="/threads">
 <fieldset>
@@ -19,11 +17,14 @@
 {% endif %}
 
 {% for topic in topics %}
-<h5>{{ topic.content }}</h5>
-<ul class="recent-threads">
-    {% for thread in topic.threads %}
-    <li><a href="{{ thread.getUrl() }}">{{ thread.title }}</a></li>
-    {% endfor %}
-</ul>
+    {% if topic.threads.count() > 0 %}
+        <h5>{{ topic.content }}</h5>
+        <ul class="recent-threads">
+            {% for thread in topic.threads %}
+                <li class="recent-thread"><a href="{{ thread.getUrl() }}">{{ thread.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endfor %}
+
 {% endblock %}

@@ -53,7 +53,7 @@ body {
   color: #222222;
   padding: 0;
   margin: 0;
-  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-family: "Merriweather", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal;
   line-height: 1;
@@ -136,7 +136,7 @@ button, .button {
   border-style: solid;
   border-width: 0px;
   cursor: pointer;
-  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-family: "Merriweather", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-weight: normal;
   line-height: normal;
   margin: 0 0 1.25rem;
@@ -2295,7 +2295,7 @@ p aside {
 
 /* Default header styles */
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-family: "Merriweather", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal;
   color: #222222;
@@ -3227,15 +3227,65 @@ th.hide-for-touch {
 }
 
 body {
-  padding: 10px;
+  padding: 0;
+  background-color: #0000cc;
+  background-image: url("/static/img/ellen1.png");
+  background-size: cover;
 }
 
-h1 {
-  font-family: 'Mate SC', serif;
+h1, h2 {
+  color: #fff;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+h4, h5 {
+  color: #fff;
+  margin: 5px 0;
+  margin-top: 40px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+header {
+  width: 900px;
+  margin: 0 auto;
+}
+header a {
+  display: inline-block;
+  background-color: #db0000;
+  color: #fff;
+  padding: 10px;
+  margin: 0 5px 0 0;
+  font-weight: bold;
+  text-transform: lowercase;
+}
+
+.main-wrapper {
+  width: 900px;
+  margin: 0 auto;
+}
+
+.recent-threads {
+  list-style-type: none;
+  margin: 0;
+}
+.recent-threads .recent-thread {
+  margin: 5px 0;
+  background-color: #e60000;
+}
+.recent-threads .recent-thread a {
+  display: block;
+  padding: 10px;
+  color: #fff;
 }
 
 .reply-form {
   display: none;
+}
+
+.og-post-wrapper h1, .og-post-wrapper h2, .og-post-wrapper h3, .og-post-wrapper h4, .og-post-wrapper h5, .og-post-wrapper h6, .posts h1, .posts h2, .posts h3, .posts h4, .posts h5, .posts h6 {
+  color: #333;
 }
 
 .posts {
@@ -3254,7 +3304,6 @@ h1 {
   *zoom: 1;
   margin: 0;
   max-width: none;
-  border: 1px solid #aaa;
   padding: 10px;
   background-color: #fafafa;
 }
@@ -3294,11 +3343,17 @@ h1 {
 }
 .post .content-wrapper {
   padding: 10px;
-  border: 1px solid #ddd;
+  background-color: #fafafa;
   padding-left: 0.9375rem;
   padding-right: 0.9375rem;
   width: 83.33333%;
   float: left;
+}
+.post .user-wrapper {
+  font-weight: bold;
+}
+.post .user-wrapper p {
+  color: #fff;
 }
 
 .user-wrapper {
@@ -3309,7 +3364,11 @@ h1 {
   padding: 0;
   padding-right: 10px;
 }
+.user-wrapper p {
+  font-size: 12px;
+}
 .user-wrapper .avatar {
+  display: none;
   width: 100%;
   min-height: 40px;
   border: 1px solid #ddd;
