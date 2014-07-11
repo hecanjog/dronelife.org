@@ -110,7 +110,7 @@ header {
     max-width: none;
 
     padding: 10px;
-    background-color: #fafafa;
+    background-color: rgba(255,255,255,0.95);
 
     .og-post {
         @include grid-column(10);
@@ -127,7 +127,7 @@ header {
 
     .content-wrapper {
         padding: 10px;
-        background-color: #fafafa;
+        background-color: rgba(255,255,255,0.95);
         @include grid-column(10);
     }
 
@@ -140,6 +140,25 @@ header {
             background-color: rgba(0,0,0,0.85);
             line-height: 1.1;
             padding: 5px;
+        }
+    }
+
+    .replies {
+        list-style-type: none;
+        margin: 5px 0;
+        background-color: rgba(0,0,0,0.1);
+
+        .reply {
+            padding: 10px;
+            padding-bottom: 5px;
+
+            p {
+                margin: 0;
+            }
+
+            .reply-attribution {
+                font-size: 0.7rem;
+            }
         }
     }
 }

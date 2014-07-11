@@ -3316,7 +3316,7 @@ header a {
   margin: 0;
   max-width: none;
   padding: 10px;
-  background-color: #fafafa;
+  background-color: rgba(255, 255, 255, 0.95);
 }
 .og-post-wrapper:before, .og-post-wrapper:after {
   content: " ";
@@ -3354,7 +3354,7 @@ header a {
 }
 .post .content-wrapper {
   padding: 10px;
-  background-color: #fafafa;
+  background-color: rgba(255, 255, 255, 0.95);
   padding-left: 0.9375rem;
   padding-right: 0.9375rem;
   width: 83.33333%;
@@ -3369,6 +3369,21 @@ header a {
   background-color: rgba(0, 0, 0, 0.85);
   line-height: 1.1;
   padding: 5px;
+}
+.post .replies {
+  list-style-type: none;
+  margin: 5px 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.post .replies .reply {
+  padding: 10px;
+  padding-bottom: 5px;
+}
+.post .replies .reply p {
+  margin: 0;
+}
+.post .replies .reply .reply-attribution {
+  font-size: 0.7rem;
 }
 
 .user-wrapper {

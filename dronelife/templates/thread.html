@@ -45,9 +45,15 @@
         <div class="content-wrapper">
                 <div class="content">{{ post.content | safe }}</div>
 
-                <ul>
+                <ul class="replies">
                 {% for reply in post.replies %}
-                    <li class="reply">{{ reply.content | safe }}</li>
+                    <li class="reply">
+                        {{ reply.content | safe }} 
+                        <span class="reply-attribution">
+                                <a href="/{{ reply.user.username }}">{{ reply.user.username }}</a>
+                            on {{ reply.posted.strftime('%A, %B %d %Y %I:%M%p')  }}
+                        </span>
+                    </li>
                 {% endfor %}
                 </ul>
 
