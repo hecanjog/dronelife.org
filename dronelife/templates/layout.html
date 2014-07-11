@@ -10,7 +10,7 @@
     <link href="http://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet" type="text/css">
 </head>
 
-<body>
+<body style="background-image: url(/static/img/{{ session.bgimg }})">
 {% block header %}
 <header>
     <a href="/">#dronelife</a>{% if current_user.is_authenticated() %}<a href="/profile">Profile</a><a href="/logout">Logout</a>{% else %}<a href="/login">Login</a><a href="/register">Register</a>{% endif %}

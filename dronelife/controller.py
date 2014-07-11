@@ -1,6 +1,19 @@
-from flask import Flask, render_template, redirect, request, url_for, flash, abort
+from flask import Flask, render_template, redirect, request, url_for, flash, abort, session
 from flask.ext.login import login_required, current_user, login_user, logout_user
 from dronelife import app, db, forms, models
+from jinja2 import Environment
+import random
+
+@app.before_request
+def inject_bgimg():
+    session['bgimg'] = random.choice([
+        'elaine1.png', 
+        'elaine2.png', 
+        'elaine3.png', 
+        'pauline1.png', 
+        'ellen1.png', 
+        'young.png'
+    ])
 
 @app.login_manager.user_loader
 def load_user(user_id):

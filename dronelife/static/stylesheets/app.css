@@ -3228,8 +3228,7 @@ th.hide-for-touch {
 
 body {
   padding: 0;
-  background-color: #0000cc;
-  background-image: url("/static/img/ellen1.png");
+  background-color: #fff;
   background-size: cover;
 }
 
