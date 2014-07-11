@@ -3230,7 +3230,7 @@ body {
   padding: 0;
   background-color: #fff;
   background-size: cover;
-  background-position: fixed;
+  background-attachment: fixed;
 }
 
 h1, h2 {
