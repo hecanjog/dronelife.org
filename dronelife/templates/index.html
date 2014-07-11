@@ -18,7 +18,7 @@
 
 {% for topic in topics %}
     {% if topic.threads.count() > 0 %}
-        <h5>{{ topic.content }}</h5>
+        <h2>{{ topic.content }}</h2>
         <ul class="recent-threads">
             {% for thread in topic.threads %}
                 <li class="recent-thread"><a href="{{ thread.getUrl() }}">{{ thread.title }}</a></li>

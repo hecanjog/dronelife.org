@@ -1,10 +1,13 @@
 {% extends "layout.html" %}
 {% block body %}
 <form method="post" action="/register">
+    <fieldset>
+        <legend>Register</legend>
     {{ form.csrf_token }}
     {{ form.username.label }} {{ form.username() }}
     {{ form.email.label }} {{ form.email() }}
     {{ form.password.label }} {{ form.password() }}
     <button type="submit">Register</button>
+    </fieldset>
 </form>
 {% endblock %}

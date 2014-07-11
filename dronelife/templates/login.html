@@ -1,9 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
 <form method="post" action="/login">
+    <fieldset>
+    <legend>Login</legend>
     {{ form.csrf_token }}
     {{ form.username.label }} {{ form.username(size=(80)) }}
     {{ form.password.label }} {{ form.password(size=(80)) }}
     <button type="submit">Login</button>
+    </fieldset>
 </form>
 {% endblock %}

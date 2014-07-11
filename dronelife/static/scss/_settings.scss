@@ -36,11 +36,11 @@
 // $total-columns: 12;
 
 // We use these to control various global styles
-// $body-bg: #fff;
-// $body-font-color: #222;
- $body-font-family: "Merriweather", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-// $body-font-weight: normal;
-// $body-font-style: normal;
+$body-bg: #fff;
+$body-font-color: #222;
+$body-font-family: "Merriweather", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-weight: normal;
+$body-font-style: normal;
 
 // We use this to control font-smoothing
 // $font-smoothing: antialiased;
@@ -51,12 +51,12 @@
 // $default-float: left;
 
 // We use these as default colors throughout
-// $primary-color: #008CBA;
-// $secondary-color: #e7e7e7;
-// $alert-color: #f04124;
-// $success-color: #43AC6A;
-// $warning-color: #f08a24;
-// $info-color: #a0d3e8;
+$primary-color: darken(#F00, 5%);
+$secondary-color: #e7e7e7;
+$alert-color: #f04124;
+$success-color: #43AC6A;
+$warning-color: #f08a24;
+$info-color: #a0d3e8;
 
 // We use these to make sure border radius matches unless we want it different.
 // $global-radius: 3px;
@@ -312,24 +312,24 @@
 // $include-html-button-classes: $include-html-classes;
 
 // We use these to build padding for buttons.
-// $button-tny: rem-calc(10);
-// $button-sml: rem-calc(14);
-// $button-med: rem-calc(16);
-// $button-lrg: rem-calc(18);
+$button-tny: rem-calc(4);
+$button-sml: rem-calc(6);
+$button-med: rem-calc(10);
+$button-lrg: rem-calc(12);
 
 // We use this to control the display property.
 // $button-display: inline-block;
-// $button-margin-bottom: rem-calc(20);
+$button-margin-bottom: rem-calc(4);
 
 // We use these to control button text styles.
-// $button-font-family: $body-font-family;
-// $button-font-color: #fff;
+$button-font-family: $body-font-family;
+$button-font-color: #fff;
 // $button-font-color-alt: #333;
 // $button-font-tny: rem-calc(11);
 // $button-font-sml: rem-calc(13);
 // $button-font-med: rem-calc(16);
 // $button-font-lrg: rem-calc(20);
-// $button-font-weight: normal;
+$button-font-weight: bold;
 // $button-font-align: center;
 
 // We use these to control various hover effects.

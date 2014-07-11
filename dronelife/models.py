@@ -163,4 +163,4 @@ class User(db.Model):
         return unicode(self.id)
 
     def check_hash(self, password):
-        return bcrypt.check_password_hash(self.password, password + self.salt)
+        return bcrypt.check_password_hash(str(self.password), password + self.salt)
