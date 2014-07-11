@@ -128,7 +128,7 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        user = modles.User.query.filter_by(username=form.data['username']).first()
+        user = models.User.query.filter_by(username=form.data['username']).first()
 
         login_user(user)
 
