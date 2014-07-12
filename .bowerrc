@@ -1,4 +1,4 @@
 {
-    "directory": "src/dronelife/static/vendor",
+    "directory": "dronelife/static/vendor",
     "json": "bower.json"
 }
