@@ -59,7 +59,9 @@ def index():
     topics = models.Topic.query.all()
     form.topic_id.choices = [ (topic.id, topic.content) for topic in topics ]
 
-    return render_template('index.html', form=form, topics=topics)
+    comments = models.Post.query.all()
+
+    return render_template('index.html', form=form, topics=topics, comments=comments)
 
 @app.route('/about')
 def about():

@@ -68,8 +68,19 @@ header {
 }
 
 .main-wrapper {
+    @include grid-row();
     max-width: $main-width;
     margin: 0 auto;
+}
+
+.main-column {
+    @include grid-column(7);
+    padding: 0;
+}
+
+.sidebar {
+    @include grid-column(5);
+    padding: 0;
 }
 
 .recent-threads {

@@ -1,5 +1,21 @@
 {% extends "layout.html" %}
 {% block body %}
+
+<div class="main-column">
+{% for topic in topics %}
+    {% if topic.threads.count() > 0 %}
+        <h2>{{ topic.content }}</h2>
+        <ul class="recent-threads">
+            {% for thread in topic.threads %}
+                <li class="recent-thread"><a href="{{ thread.getUrl() }}">{{ thread.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endfor %}
+</div>
+
+
+<div class="sidebar">
 {% if current_user.is_authenticated() %}
 <form method="post" action="/threads">
 <fieldset>
@@ -16,15 +32,11 @@
 </form>
 {% endif %}
 
-{% for topic in topics %}
-    {% if topic.threads.count() > 0 %}
-        <h2>{{ topic.content }}</h2>
-        <ul class="recent-threads">
-            {% for thread in topic.threads %}
-                <li class="recent-thread"><a href="{{ thread.getUrl() }}">{{ thread.title }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endfor %}
+    <ul class="recent-comments">
+        {% for comment in comments %}
+            <li>{{ comment.content | safe }}</li>
+        {% endfor %}
+    </ul>
+</div>
 
 {% endblock %}

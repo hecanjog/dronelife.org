@@ -624,6 +624,7 @@ select::-ms-expand {
     background: #f3f3f3;
   }
 }
+
 /* Attach elements to the beginning or end of an input */
 .prefix,
 .postfix {
@@ -2589,7 +2590,8 @@ blockquote p {
 
   @page {
     margin: 0.5cm;
-  }
+}
+
   p,
   h2,
   h3 {
@@ -3133,6 +3135,7 @@ th.hide-for-touch {
   font-weight: normal;
   font-style: normal;
 }
+
 [class^="dronelife-"], [class*=" dronelife-"] {
   font-family: 'dronelife';
   speak: none;
@@ -3273,8 +3276,38 @@ header a {
 }
 
 .main-wrapper {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  max-width: 62.5rem;
+  *zoom: 1;
   max-width: 900px;
   margin: 0 auto;
+}
+.main-wrapper:before, .main-wrapper:after {
+  content: " ";
+  display: table;
+}
+.main-wrapper:after {
+  clear: both;
+}
+
+.main-column {
+  padding-left: 0.9375rem;
+  padding-right: 0.9375rem;
+  width: 58.33333%;
+  float: left;
+  padding: 0;
+}
+
+.sidebar {
+  padding-left: 0.9375rem;
+  padding-right: 0.9375rem;
+  width: 41.66667%;
+  float: left;
+  padding: 0;
 }
 
 .recent-threads {
