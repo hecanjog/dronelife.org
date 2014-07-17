@@ -10,7 +10,7 @@ from dronelife.emoji import EmojiExtension
 bcrypt = Bcrypt(app)
 
 def parse_raw(content):
-    return markdown(content, safe_mode='remove', extensions=[EmojiExtension(), 'footnotes', 'sane_lists', 'tables', 'linkify'])
+    return markdown(content, safe_mode=False, extensions=[EmojiExtension(), 'footnotes', 'sane_lists', 'tables', 'linkify'])
 
 class Topic(db.Model):
     id = db.Column(db.Integer, primary_key=True)

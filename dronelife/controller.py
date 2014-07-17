@@ -56,10 +56,11 @@ def profileRedirect():
 @app.route('/')
 def index():
     form = forms.NewThreadForm()
+    first_threads = db.aliased(models.Thread)
     topics = models.Topic.query.all()
     form.topic_id.choices = [ (topic.id, topic.content) for topic in topics ]
 
-    comments = models.Post.query.all()
+    comments = models.Post.query.order_by('posted desc').limit(5)
 
     return render_template('index.html', form=form, topics=topics, comments=comments)
 
