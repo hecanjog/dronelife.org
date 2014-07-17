@@ -1,0 +1,12 @@
+<div class="heading">
+    <a class="title" href="{{ thread.getUrl() }}">{{ thread.title }}</a>
+    {% if thread.posts.count() > 0 %}
+        <div class="post-count">{{ thread.posts.count() }}</div>
+    {% endif %}
+</div>
+
+<div class="info">
+    <p>Posted by <a href="/{{ thread.author.username }}">{{ thread.author.username }}</a> 
+    on {{ thread.posted.strftime('%A, %B %d %Y %I:%M%p')  }}
+</div>
+

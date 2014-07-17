@@ -87,19 +87,49 @@ header {
     padding: 0;
 }
 
-.recent-threads {
+.thread-list {
     list-style-type: none;
     margin: 0;
     
-    .recent-thread {
+    .thread {
         margin: 5px 0;
         background-color: $main-base;
 
-        a {
+        .heading {
+            @include grid-row();
+        }
+
+        .title {
+            @include grid-column(11);
             display: block;
             padding: 10px;
             color: #fff;
         }
+
+        .post-count {
+            @include grid-column(1);
+            color: #fff;
+            font-weight: bold;
+            text-align: right;
+            padding: 10px;
+        }
+
+        .info {
+            background-color: #fff;
+            color: #333;
+            padding: 5px;
+
+            p {
+                font-size: 10px;
+                margin: 0;
+            }
+
+            a { 
+                display: inline;
+            }
+        }
+
+
     }
 }
 

@@ -3310,18 +3310,60 @@ header a {
   padding: 0;
 }
 
-.recent-threads {
+.thread-list {
   list-style-type: none;
   margin: 0;
 }
-.recent-threads .recent-thread {
+.thread-list .thread {
   margin: 5px 0;
   background-color: #e60000;
 }
-.recent-threads .recent-thread a {
+.thread-list .thread .heading {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  max-width: 62.5rem;
+  *zoom: 1;
+}
+.thread-list .thread .heading:before, .thread-list .thread .heading:after {
+  content: " ";
+  display: table;
+}
+.thread-list .thread .heading:after {
+  clear: both;
+}
+.thread-list .thread .title {
+  padding-left: 0.9375rem;
+  padding-right: 0.9375rem;
+  width: 91.66667%;
+  float: left;
   display: block;
   padding: 10px;
   color: #fff;
+}
+.thread-list .thread .post-count {
+  padding-left: 0.9375rem;
+  padding-right: 0.9375rem;
+  width: 8.33333%;
+  float: left;
+  color: #fff;
+  font-weight: bold;
+  text-align: right;
+  padding: 10px;
+}
+.thread-list .thread .info {
+  background-color: #fff;
+  color: #333;
+  padding: 5px;
+}
+.thread-list .thread .info p {
+  font-size: 10px;
+  margin: 0;
+}
+.thread-list .thread .info a {
+  display: inline;
 }
 
 .reply-form {

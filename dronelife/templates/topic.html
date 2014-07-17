@@ -3,9 +3,9 @@
 
 <div class="main-column">
     <h2>{{ topic.content }}</h2>
-    <ul class="recent-threads">
+    <ul class="thread-list">
         {% for thread in topic.threads.order_by('posted desc').all() %}
-            <li class="recent-thread"><a href="{{ thread.getUrl() }}">{{ thread.title }}</a></li>
+            <li class="thread">{% include "thread_list.html" %}</li>
         {% endfor %}
     </ul>
 </div>
