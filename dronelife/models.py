@@ -38,7 +38,7 @@ class Thread(db.Model):
     author = db.relationship('User', backref=db.backref('thread'))
     locked = db.Column(db.Boolean)
     flagged = db.Column(db.Boolean)
-    posts = db.relationship('Post', backref=db.backref('thread'))
+    posts = db.relationship('Post', backref=db.backref('thread'), lazy='dynamic')
 
     topic_id = db.Column(db.Integer, db.ForeignKey('topic.id'))
     topic = db.relationship('Topic', backref=db.backref('threads', lazy='dynamic'))
@@ -77,7 +77,7 @@ class Post(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     author = db.relationship('User', backref=db.backref('post'))
     thread_id = db.Column(db.Integer, db.ForeignKey('thread.id'))
-    replies = db.relationship('Reply', backref=db.backref('post'))
+    replies = db.relationship('Reply', backref=db.backref('post'), lazy='dynamic')
 
     def __init__(self, content, author_id, thread_id):
         self.raw_content = content

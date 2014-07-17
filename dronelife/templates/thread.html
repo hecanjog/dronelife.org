@@ -33,7 +33,7 @@
 </div>
 
 <ul class="posts">
-{% for post in thread.posts %}
+    {% for post in thread.posts.order_by('posted asc') %}
     <li class="post">
         <div class="user-wrapper">
             <img class="avatar" src="{{ post.author.avatar }}" />
@@ -46,7 +46,7 @@
                 <div class="content">{{ post.content | safe }}</div>
 
                 <ul class="replies">
-                {% for reply in post.replies %}
+                    {% for reply in post.replies.order_by('posted asc') %}
                     <li class="reply">
                         {{ reply.content | safe }} 
                         <span class="reply-attribution">
