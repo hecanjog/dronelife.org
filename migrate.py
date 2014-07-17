@@ -5,7 +5,6 @@ from postmarkup import render_bbcode as bb
 import HTMLParser
 import re
 from markdown import markdown
-from dronelife.bbcode import BBCExtension
 
 h = HTMLParser.HTMLParser()
 
