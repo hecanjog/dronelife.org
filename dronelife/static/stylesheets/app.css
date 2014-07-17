@@ -624,7 +624,6 @@ select::-ms-expand {
     background: #f3f3f3;
   }
 }
-
 /* Attach elements to the beginning or end of an input */
 .prefix,
 .postfix {
@@ -2590,8 +2589,7 @@ blockquote p {
 
   @page {
     margin: 0.5cm;
-}
-
+  }
   p,
   h2,
   h3 {
@@ -3135,7 +3133,6 @@ th.hide-for-touch {
   font-weight: normal;
   font-style: normal;
 }
-
 [class^="dronelife-"], [class*=" dronelife-"] {
   font-family: 'dronelife';
   speak: none;
@@ -3240,6 +3237,9 @@ h1, h2, h3, h4, h5 {
   font-weight: bold;
   margin-top: 10px;
   text-shadow: #000 1px 1px 0;
+}
+h1 a, h2 a, h3 a, h4 a, h5 a {
+  color: #fff;
 }
 
 h4, h5 {

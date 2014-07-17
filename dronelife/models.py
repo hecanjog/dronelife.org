@@ -24,6 +24,9 @@ class Topic(db.Model):
     def __repr__(self):
         return '<Topic %s>' % self.content
 
+    def getUrl(self):
+        return '/topics/%s/%s' % (self.id, urllib.quote_plus(self.content))
+
 class Thread(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))

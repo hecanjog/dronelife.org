@@ -64,6 +64,17 @@ def index():
 
     return render_template('index.html', form=form, topics=topics, comments=comments)
 
+@app.route('/topics/<id>/<title>')
+def topic(id, title):
+    form = forms.NewThreadForm()
+    first_threads = db.aliased(models.Thread)
+    topics = models.Topic.query.all()
+    form.topic_id.choices = [ (topic.id, topic.content) for topic in topics ]
+
+    topic = models.Topic.query.filter_by(id=id).one()
+
+    return render_template('topic.html', form=form, topic=topic)
+
 @app.route('/about')
 def about():
     return render_template('about.html')

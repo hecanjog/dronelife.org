@@ -4,7 +4,7 @@
 <div class="main-column">
     {% for topic in topics %}
     {% if topic.threads.count() > 0 %}
-        <h2>{{ topic.content }}</h2>
+        <h2><a href="{{ topic.getUrl() }}">{{ topic.content }}</a></h2>
         <ul class="recent-threads">
                 {% for thread in topic.threads.order_by('posted desc').limit(5) %}
                 <li class="recent-thread"><a href="{{ thread.getUrl() }}">{{ thread.title }}</a></li>
