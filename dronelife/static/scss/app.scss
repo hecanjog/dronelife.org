@@ -58,7 +58,7 @@ fieldset {
     }
 }
 
-header {
+nav {
     $nav-base: $main-base;
     max-width: $main-width;
     margin: 0 auto;
@@ -74,7 +74,7 @@ header {
     }
 }
 
-.main-wrapper {
+main {
     @include grid-row();
     max-width: $main-width;
     margin: 0 auto;

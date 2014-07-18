@@ -1,24 +1,24 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="main-column">
+<article class="main-column profile">
     <h3>{{ user.username }}</h3>
 
     {% if user.description %}
-        <div class="profile-description">{{ user.description | safe }}</div>
+        <section class="profile-description">{{ user.description | safe }}</section>
     {% endif %}
 
     {% if user.website %}
-        <div class="profile-website">{{ user.website }}</div>
+        <section class="profile-website">{{ user.website }}</section>
     {% endif %}
 
     {% if user.facebook %}
-        <div class="profile-facebook">{{ user.facebook }}</div>
+        <section class="profile-facebook">{{ user.facebook }}</section>
     {% endif %}
 
     {% if user.twitter %}
-        <div class="profile-twitter">{{ user.twitter }}</div>
+        <section class="profile-twitter">{{ user.twitter }}</section>
     {% endif %}
-</div>
+</article>
 
 {% if current_user.is_authenticated() and current_user.username == user.username %}
 <form method="post" action="/profile">

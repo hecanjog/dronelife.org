@@ -3312,11 +3312,11 @@ fieldset label {
   margin-bottom: 5px;
 }
 
-header {
+nav {
   max-width: 900px;
   margin: 0 auto;
 }
-header a {
+nav a {
   display: inline-block;
   background-color: #db0000;
   color: #fff;
@@ -3326,7 +3326,7 @@ header a {
   text-transform: lowercase;
 }
 
-.main-wrapper {
+main {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -3337,11 +3337,11 @@ header a {
   max-width: 900px;
   margin: 0 auto;
 }
-.main-wrapper:before, .main-wrapper:after {
+main:before, main:after {
   content: " ";
   display: table;
 }
-.main-wrapper:after {
+main:after {
   clear: both;
 }
 

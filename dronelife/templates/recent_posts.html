@@ -1,17 +1,21 @@
-<h3>Recent Posts</h3>
-<ul class="recent-comments">
-{% for comment in comments %}
-{% if comment.thread_id %}
-    <li>
-            <blockquote>
-                {{ comment.content | safe }}
-                <footer>
-                    <cite><a href="/{{ comment.author.username }}">{{ comment.author.username }}</a></cite> 
-                    <small><a class="post-permalink" href="/threads/{{ comment.thread_id }}/go/#post-{{ comment.id }}">{{ comment.posted.strftime('%A, %B %d %Y %I:%M%p') }}</a></small>
-                </footer>
-            </blockquote>
-    </li>
-{% endif %}
-{% endfor %}
-</ul>
+<article>
+    <header>
+        <h3>Recent Posts</h3>
+    </header>
 
+    <ul class="recent-comments">
+        {% for comment in comments %}
+            {% if comment.thread_id %}
+            <li>
+                <blockquote>
+                    {{ comment.content | safe }}
+                    <footer>
+                        <cite><a href="/{{ comment.author.username }}">{{ comment.author.username }}</a></cite> 
+                        <small><a class="post-permalink" href="/threads/{{ comment.thread_id }}/go/#post-{{ comment.id }}">{{ comment.posted.strftime('%A, %B %d %Y %I:%M%p') }}</a></small>
+                    </footer>
+                </blockquote>
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</article>

@@ -1,18 +1,18 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<div class="main-column">
+<section class="main-column">
     <ul class="thread-list">
         {% for thread in threads %}
             <li class="thread">{% include "thread_list.html" %}</li>
         {% endfor %}
     </ul>
-</div>
+</section>
 
-<div class="sidebar">
+<section class="sidebar">
     {% include "new_thread.html" %}
     {% include "recent_posts.html" %}
     {% include "recent_users.html" %}
-</div>
+</section>
 
 {% endblock %}

@@ -19,43 +19,45 @@
 {% endblock %}
 
 {% block body %}
+<article class="thread">
 <h2>{{ thread.title }}</h2>
-<div class="og-post-wrapper">
-    <div class="user-wrapper">
+<section class="og-post-wrapper">
+    <aside class="user-wrapper">
         <img class="avatar" src="{{ thread.author.avatar }}" />
         <p>Posted by <a href="/{{ thread.author.username }}">{{ thread.author.username }}</a> 
         on {{ thread.posted.strftime('%A, %B %d %Y %I:%M%p')  }}
         </p>
-    </div>
+    </aside>
 
     <div class="og-post">{{ thread.content | safe }}</div>
-</div>
+</section>
 
 <ul class="posts">
     {% for post in thread.posts.order_by('posted asc') %}
     <li class="post">
         <a name="post-{{ post.id }}"></a>
 
-        <div class="user-wrapper">
+        <aside class="user-wrapper">
             <img class="avatar" src="{{ post.author.avatar }}" />
             <p>Posted by <a href="/{{ post.author.username }}">{{ post.author.username }}</a>
             on {{ post.posted.strftime('%A, %B %d %Y %I:%M%p')  }}
             </p>
 
             <a class="post-permalink" href="/threads/{{ thread.id }}/go/#post-{{ post.id }}">permalink</a>
-        </div>
+        </aside>
 
-        <div class="content-wrapper">
+        <section class="content-wrapper">
                 <div class="content">{{ post.content | safe }}</div>
 
                 <ul class="replies">
                     {% for reply in post.replies.order_by('posted asc') %}
                     <li class="reply">
-                        {{ reply.content | safe }} 
-                        <span class="reply-attribution">
+                            {{ reply.content | safe }} 
+
+                            <aside class="reply-attribution">
                                 <a href="/{{ reply.user.username }}">{{ reply.user.username }}</a>
-                            on {{ reply.posted.strftime('%A, %B %d %Y %I:%M%p')  }}
-                        </span>
+                                on {{ reply.posted.strftime('%A, %B %d %Y %I:%M%p')  }}
+                            </aside>
                     </li>
                 {% endfor %}
                 </ul>
@@ -73,12 +75,13 @@
                 </fieldset>
                 </form>
                 {% endif %}
-        </div>
+        </section>
     </li>
 
 {% endfor %}
 </ul>
 
+<footer>
 {% if current_user.is_authenticated() %}
 <form method="post" action="/posts">
 <fieldset>
@@ -89,4 +92,6 @@
 </fieldset>
 </form>
 {% endif %}
+</footer>
+</article>
 {% endblock %}

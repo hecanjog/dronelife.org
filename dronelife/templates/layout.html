@@ -14,11 +14,11 @@
 
 <body style="background-image: url(/static/img/{{ session.bgimg }})">
 {% block header %}
-<header>
+<nav>
     <a href="/">#dronelife</a>{% if current_user.is_authenticated() %}<a href="/profile">Profile</a><a href="/logout">Logout</a>{% else %}<a href="/login">Login</a><a href="/register">Register</a>{% endif %}
-</header>
+</nav>
 {% endblock %}
-<div class="main-wrapper">{% block body %}{% endblock %}</div>{% block js %}{% endblock %}
+<main>{% block body %}{% endblock %}</main>{% block js %}{% endblock %}
 <script type="text/javascript">
           var _gaq = _gaq || [];
           _gaq.push(['_setAccount', 'UA-29860282-1']);
