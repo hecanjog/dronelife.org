@@ -13,6 +13,8 @@
 $main-width: 900px;
 $main-base: $primary-color;
 
+@import "parsley";
+
 body {
     padding: 0;
     background-size: cover;

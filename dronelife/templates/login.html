@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block body %}
-<form method="post" action="/login">
+<form method="post" action="/login" data-parsley-validate>
     <fieldset>
     <legend>Login</legend>
     {{ form.csrf_token }}
-    {{ form.username.label }} {{ form.username(size=(80)) }}
-    {{ form.password.label }} {{ form.password(size=(80)) }}
+    {{ form.username.label }} {{ form.username(required=true, **{'data-parsley-trigger':"change"}) }}
+    {{ form.password.label }} {{ form.password(required=true, **{'data-parsley-trigger':"change"}) }}
     <button type="submit">Login</button>
     </fieldset>
 </form>

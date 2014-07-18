@@ -1,8 +1,10 @@
 {
-  "name": "foundation-compass-app",
+  "name": "dronelife",
   "version": "0.0.1",
   "private": "true",
   "dependencies": {
-    "foundation": "zurb/bower-foundation#~5.1.1"
+    "foundation": "zurb/bower-foundation#~5.1.1",
+    "parsleyjs": "~2.0.2",
+    "jquery": "~2.1.1"
   }
 }
