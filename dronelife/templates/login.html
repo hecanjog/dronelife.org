@@ -4,8 +4,8 @@
     <fieldset>
     <legend>Login</legend>
     {{ form.csrf_token }}
-    {{ form.username.label }} {{ form.username(required=true, **{'data-parsley-trigger':"change"}) }}
-    {{ form.password.label }} {{ form.password(required=true, **{'data-parsley-trigger':"change"}) }}
+    {{ form.username.label }} {{ form.username(required=true, **{'data-parsley-trigger':"keyup"}) }}
+    {{ form.password.label }} {{ form.password(required=true, **{'data-parsley-trigger':"keyup"}) }}
     <button type="submit">Login</button>
     </fieldset>
 </form>
