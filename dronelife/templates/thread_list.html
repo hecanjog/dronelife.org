@@ -10,3 +10,8 @@
     on {{ thread.posted.strftime('%A, %B %d %Y %I:%M%p')  }}
 </div>
 
+{% if current_user.is_admin %}
+<div class="manage">
+    <a href="/admin/delete/thread/{{ thread.id }}">Delete</a>
+</div>
+{% endif %}

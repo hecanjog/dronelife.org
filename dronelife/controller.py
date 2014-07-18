@@ -42,6 +42,20 @@ def admin_delete_user(id):
 
     return redirect('/admin')
 
+@app.route('/admin/delete/thread/<id>')
+@login_required
+def admin_delete_thread(id):
+    if not current_user.is_admin:
+        return abort(401)
+
+    thread = models.Thread.query.filter_by(id=id).one()
+
+    db.session.delete(thread)
+    db.session.commit()
+
+    return redirect('/admin')
+
+
 @app.route('/threads/<id>/<title>')
 def thread(id, title):
     thread = models.Thread.query.filter_by(id=id).first_or_404()

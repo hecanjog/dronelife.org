@@ -3417,6 +3417,23 @@ header a {
 .thread-list .thread .info a {
   display: inline;
 }
+.thread-list .thread .manage {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 5px;
+  *zoom: 1;
+}
+.thread-list .thread .manage:before, .thread-list .thread .manage:after {
+  content: " ";
+  display: table;
+}
+.thread-list .thread .manage:after {
+  clear: both;
+}
+.thread-list .thread .manage a {
+  float: right;
+  font-size: 0.8rem;
+  color: #e60000;
+}
 
 .recent-comments {
   list-style-type: none;

@@ -133,7 +133,17 @@ header {
             }
         }
 
+        .manage {
+            background-color: rgba(0,0,0,0.8);
+            padding: 5px;
+            @include clearfix();
 
+            a {
+                float: right;
+                font-size: 0.8rem;
+                color: $primary-color;
+            }
+        }
     }
 }
 
