@@ -2,18 +2,12 @@
 {% block body %}
 
 <div class="main-column">
-    {% for topic in topics %}
-    {% if topic.threads.count() > 0 %}
-        <h2><a href="{{ topic.getUrl() }}">{{ topic.content }}</a></h2>
-        <ul class="thread-list">
-            {% for thread in topic.threads.order_by('posted desc').limit(5) %}
-                <li class="thread">{% include "thread_list.html" %}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endfor %}
+    <ul class="thread-list">
+        {% for thread in threads %}
+            <li class="thread">{% include "thread_list.html" %}</li>
+        {% endfor %}
+    </ul>
 </div>
-
 
 <div class="sidebar">
     {% include "new_thread.html" %}

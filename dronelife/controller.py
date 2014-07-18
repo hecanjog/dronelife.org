@@ -3,6 +3,7 @@ from flask.ext.login import login_required, current_user, login_user, logout_use
 from dronelife import app, db, forms, models
 from jinja2 import Environment
 import random
+#import mailchimp
 
 @app.before_request
 def inject_bgimg():
@@ -26,6 +27,10 @@ def admin():
         return abort(401)
 
     users = models.User.query.order_by('registered_on desc').all()
+
+#    mc = mailchimp.Mailchimp(apikey=app.config['MAILCHIMP_APIKEY'])
+#    lists_id = mailchimp.Lists(mc)['data'][0]
+#    lists.subscribe(list_id, {'email': 'foo@example.com'})
 
     return render_template('admin.html', users=users)
 
@@ -102,7 +107,9 @@ def index():
 
     comments = models.Post.query.order_by('posted desc').limit(3)
 
-    return render_template('index.html', form=form, topics=topics, comments=comments, recent_users=recent_users)
+    threads = models.Thread.query.order_by('posted desc').limit(30)
+
+    return render_template('index.html', form=form, topics=topics, threads=threads, comments=comments, recent_users=recent_users)
 
 @app.route('/topics/<id>/<title>')
 def topic(id, title):

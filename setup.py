@@ -17,6 +17,8 @@ setup(
         'docopt',
         'markdown',
         'mdx_linkify',
+        'boto',
+        'mailchimp'
     ],
     scripts=['bin/dronelife'],
     zip_safe=False,
