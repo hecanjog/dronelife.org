@@ -60,9 +60,11 @@ def index():
     topics = models.Topic.query.all()
     form.topic_id.choices = [ (topic.id, topic.content) for topic in topics ]
 
-    comments = models.Post.query.order_by('posted desc').limit(5)
+    recent_users = models.User.query.order_by('registered_on desc').limit(5)
 
-    return render_template('index.html', form=form, topics=topics, comments=comments)
+    comments = models.Post.query.order_by('posted desc').limit(3)
+
+    return render_template('index.html', form=form, topics=topics, comments=comments, recent_users=recent_users)
 
 @app.route('/topics/<id>/<title>')
 def topic(id, title):

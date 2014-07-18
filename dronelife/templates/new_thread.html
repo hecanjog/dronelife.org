@@ -1,0 +1,16 @@
+{% if current_user.is_authenticated() %}
+<form method="post" action="/threads">
+<fieldset>
+    <legend>New Thread</legend>
+    {{ form.topic_id.label }}
+    {{ form.topic_id() }}
+    {{ form.title.label }}
+    {{ form.title(size=(80)) }}
+
+    {{ form.content.label }}
+    {{ form.content(rows=20) }}
+    <button type="submit">post</button>
+</fieldset>
+</form>
+{% endif %}
+

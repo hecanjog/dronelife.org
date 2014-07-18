@@ -1,0 +1,6 @@
+<h3>New Dronelifers</h3>
+<ul class="recent-users">
+    {% for user in recent_users %}
+    <li><a href="/{{ user.username }}">{{ user.username }}</a></li>
+    {% endfor %}
+</ul>

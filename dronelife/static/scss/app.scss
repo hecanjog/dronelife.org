@@ -87,6 +87,7 @@ header {
 .sidebar {
     @include grid-column(5);
     padding: 0;
+    padding-left: 5px;
 }
 
 .thread-list {
@@ -95,7 +96,7 @@ header {
     
     .thread {
         margin: 5px 0;
-        background-color: $main-base;
+        background-color: transparentize($main-base, 0.15);
 
         .heading {
             @include grid-row();
@@ -117,7 +118,7 @@ header {
         }
 
         .info {
-            background-color: #fff;
+            background-color: rgba(255,255,255,0.95);
             color: #333;
             padding: 5px;
 
@@ -132,6 +133,40 @@ header {
         }
 
 
+    }
+}
+
+.recent-comments {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+        margin: 5px 0;
+
+        blockquote, p {
+            background-color: rgba(255,255,255,0.95);
+            font-size: 0.8em;
+            padding: 10px;
+        }
+    }
+}
+
+.recent-users {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+        display: inline-block;
+        margin: 2px 0;
+
+        a {
+            display: block;
+            padding: 5px;
+            background-color: $primary-color;
+            color: #fff;
+        }
     }
 }
 

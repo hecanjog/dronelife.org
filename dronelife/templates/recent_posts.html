@@ -1,0 +1,15 @@
+<h3>Recent Posts</h3>
+<ul class="recent-comments">
+{% for comment in comments %}
+    <li>
+            <blockquote>
+                {{ comment.content | safe }}
+                <footer>
+                    <cite><a href="/{{ comment.author.username }}">{{ comment.author.username }}</a></cite> 
+                    <small>{{ comment.posted.strftime('%A, %B %d %Y %I:%M%p') }}</small>
+                </footer>
+            </blockquote>
+    </li>
+{% endfor %}
+</ul>
+
