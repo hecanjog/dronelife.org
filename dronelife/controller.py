@@ -56,7 +56,7 @@ def admin_delete_thread(id):
     return redirect('/admin')
 
 
-@app.route('/threads/<id>/<title>')
+@app.route('/threads/<id>/<title>/')
 def thread(id, title):
     thread = models.Thread.query.filter_by(id=id).first_or_404()
     postform = forms.NewPostForm()
