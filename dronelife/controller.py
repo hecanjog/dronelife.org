@@ -19,6 +19,29 @@ def inject_bgimg():
 def load_user(user_id):
     return models.User.query.filter_by(id=int(user_id)).first()
 
+@app.route('/admin')
+@login_required
+def admin():
+    if not current_user.is_admin:
+        return abort(401)
+
+    users = models.User.query.order_by('registered_on desc').all()
+
+    return render_template('admin.html', users=users)
+
+@app.route('/admin/delete/user/<id>')
+@login_required
+def admin_delete_user(id):
+    if not current_user.is_admin:
+        return abort(401)
+
+    user = models.User.query.filter_by(id=id).one()
+
+    db.session.delete(user)
+    db.session.commit()
+
+    return redirect('/admin')
+
 @app.route('/threads/<id>/<title>')
 def thread(id, title):
     thread = models.Thread.query.filter_by(id=id).first_or_404()
@@ -37,6 +60,7 @@ def profile(username):
     return render_template('profile.html', user=user, form=form)
 
 @app.route('/profile', methods=['GET', 'POST'])
+@login_required
 def profileRedirect():
     form = forms.ProfileForm()
 

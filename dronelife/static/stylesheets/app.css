@@ -3257,6 +3257,26 @@ textarea.parsley-error:focus {
   opacity: 1;
 }
 
+.admin-users {
+  list-style-type: none;
+}
+.admin-users li {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 10px;
+  margin: 5px 0;
+  *zoom: 1;
+}
+.admin-users li:before, .admin-users li:after {
+  content: " ";
+  display: table;
+}
+.admin-users li:after {
+  clear: both;
+}
+.admin-users li .delete-user {
+  float: right;
+}
+
 body {
   padding: 0;
   background-size: cover;
