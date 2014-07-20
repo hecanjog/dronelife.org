@@ -133,7 +133,11 @@ class User(db.Model):
     soundcloud = db.Column(db.String(120))
     description = db.Column(db.Text)
     registered_on = db.Column(db.DateTime)
+    token = db.Column(db.String(120))
+    token_expires = db.Column(db.DateTime)
 
+    flagged = db.Column(db.Boolean)
+    locked = db.Column(db.Boolean)
     is_admin = db.Column(db.Boolean)
     is_moderator = db.Column(db.Boolean)
 
