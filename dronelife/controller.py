@@ -28,8 +28,11 @@ def password_reset_request():
     if form.validate_on_submit():
         # set token
         user = models.User.query.filter_by(email=form.data['email']).one()
-        token = user.set_token()
-        db.session.commit()
+        try:
+            token = user.set_token()
+            db.session.commit()
+        except:
+            print 'no user with this email', form.data['email']
 
         # send email
         c = ses.connect_to_region('us-east-1', 
