@@ -34,4 +34,8 @@ class ProfileForm(Form):
     bandcamp = TextField('bandcamp', validators=[Optional()])
     soundcloud = TextField('soundcloud', validators=[Optional()])
 
+class PasswordResetRequestForm(Form):
+    email = TextField('email', validators=[InputRequired()])
 
+class PasswordResetForm(Form):
+    password = PasswordField('password', validators=[InputRequired()])

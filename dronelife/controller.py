@@ -4,6 +4,8 @@ from dronelife import app, db, forms, models
 from jinja2 import Environment
 import random
 #import mailchimp
+import boto.ses as ses
+from datetime import datetime
 
 @app.before_request
 def inject_bgimg():
@@ -20,6 +22,52 @@ def inject_bgimg():
 def load_user(user_id):
     return models.User.query.filter_by(id=int(user_id)).first()
 
+@app.route('/password/reset/request', methods=['GET', 'POST'])
+def password_reset_request():
+    form = forms.PasswordResetRequestForm()
+    if form.validate_on_submit():
+        # set token
+        user = models.User.query.filter_by(email=form.data['email']).one()
+        token = user.set_token()
+        db.session.commit()
+
+        # send email
+        c = ses.connect_to_region('us-east-1', 
+            aws_access_key_id=app.config['AWS_KEY'],
+            aws_secret_access_key=app.config['AWS_SECRET'])
+
+        c.send_email('bot@dronelife.org', '[DRONELIFE] Password Reset Request', 
+               """Heyo, 
+
+Head over here to choose a new password: %spassword/reset/%s
+
+If you didn't ask me to send this, just ignore it and the link will expire in an hour.
+
+Love,
+
+#dronebot
+               """ % (request.url_root, token)
+            , [form.data['email']])
+
+    return render_template('password_reset_request.html', form=form)
+
+@app.route('/password/reset/<token>', methods=['GET', 'POST'])
+def password_reset(token):
+    user = models.User.query.filter_by(token=token).one()
+
+    if not user or user.token_expires <= datetime.utcnow():
+       abort(404) 
+
+    form = forms.PasswordResetForm()
+
+    if form.validate_on_submit():
+        user.token_expires = datetime.utcnow()
+        user.set_password(form.data['password']) 
+        db.session.commit()
+        return redirect('/login')
+
+    return render_template('password_reset.html', token=token, form=form)
+
 @app.route('/admin')
 @login_required
 def admin():
@@ -27,6 +75,7 @@ def admin():
         return abort(401)
 
     users = models.User.query.order_by('registered_on desc').all()
+
 
 #    mc = mailchimp.Mailchimp(apikey=app.config['MAILCHIMP_APIKEY'])
 #    lists_id = mailchimp.Lists(mc)['data'][0]

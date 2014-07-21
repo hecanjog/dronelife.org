@@ -21,7 +21,7 @@ if __name__ == '__main__':
     args = docopt(__doc__)
 
     if args['dev'] == True:
-        app.run(debug=True)
+        app.run(host='0.0.0.0', debug=True)
 
     if args['run'] == True:
         app.run()

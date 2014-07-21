@@ -6,6 +6,7 @@ from dronelife import app
 import urllib
 from markdown import markdown
 from dronelife.emoji import EmojiExtension
+import time
 
 bcrypt = Bcrypt(app)
 
@@ -136,8 +137,8 @@ class User(db.Model):
     token = db.Column(db.String(120))
     token_expires = db.Column(db.DateTime)
 
-    flagged = db.Column(db.Boolean)
-    locked = db.Column(db.Boolean)
+#    flagged = db.Column(db.Boolean)
+#    locked = db.Column(db.Boolean)
     is_admin = db.Column(db.Boolean)
     is_moderator = db.Column(db.Boolean)
 
@@ -171,3 +172,14 @@ class User(db.Model):
 
     def check_hash(self, password):
         return bcrypt.check_password_hash(str(self.password), password + self.salt)
+
+    def set_password(self, password):
+        self.password = bcrypt.generate_password_hash(password + self.salt)
+        return self.password
+
+    def set_token(self):
+        self.token = urllib.quote_plus(bcrypt.generate_password_hash(random.random()))[-6:]
+        self.token_expires = datetime.utcfromtimestamp(time.time() + (60 * 60)) # expires in 1 hour
+
+        return self.token
+
