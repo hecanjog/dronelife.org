@@ -80,6 +80,17 @@ main {
     margin: 0 auto;
 }
 
+#login-form {
+    fieldset {
+        @include clearfix();
+    }       
+
+    .forgot-password {
+        float: right;
+        padding: 20px;
+    }
+}
+
 .main-column {
     @include grid-column(7);
     padding: 0;

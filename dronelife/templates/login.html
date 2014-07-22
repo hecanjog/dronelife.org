@@ -1,12 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
-<form method="post" action="/login" data-parsley-validate>
+<form id="login-form" method="post" action="/login" data-parsley-validate>
     <fieldset>
     <legend>Login</legend>
     {{ form.csrf_token }}
     {{ form.username.label }} {{ form.username(id="username", required=true, **{'data-parsley-trigger':"keyup", 'data-parsley-remote': "/users/username_exists", 'data-parsley-remote-message': "Nobody here by that name. Maybe make a new account?", 'data-parsley-remote-options': "{data: {username: $(\'#username\').val()}}"}) }}
     {{ form.password.label }} {{ form.password(required=true, **{'data-parsley-trigger':"keyup"}) }}
     <button type="submit">Login</button>
+
+    <a class="forgot-password" href="/password/reset/request">Forgot your password?</a>
     </fieldset>
 </form>
 {% endblock %}

@@ -3345,6 +3345,21 @@ main:after {
   clear: both;
 }
 
+#login-form fieldset {
+  *zoom: 1;
+}
+#login-form fieldset:before, #login-form fieldset:after {
+  content: " ";
+  display: table;
+}
+#login-form fieldset:after {
+  clear: both;
+}
+#login-form .forgot-password {
+  float: right;
+  padding: 20px;
+}
+
 .main-column {
   padding-left: 0.9375rem;
   padding-right: 0.9375rem;
