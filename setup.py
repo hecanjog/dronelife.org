@@ -18,6 +18,7 @@ setup(
         'markdown',
         'mdx_linkify',
         'boto',
+        'requests',
         'mailchimp'
     ],
     scripts=['bin/dronelife'],

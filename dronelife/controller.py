@@ -88,11 +88,6 @@ def admin():
 
     users = models.User.query.order_by('registered_on desc').all()
 
-
-#    mc = mailchimp.Mailchimp(apikey=app.config['MAILCHIMP_APIKEY'])
-#    lists_id = mailchimp.Lists(mc)['data'][0]
-#    lists.subscribe(list_id, {'email': 'foo@example.com'})
-
     return render_template('admin.html', users=users)
 
 @app.route('/admin/delete/user/<id>')
