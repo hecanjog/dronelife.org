@@ -4,7 +4,7 @@
     <fieldset>
     <legend>Login</legend>
     {{ form.csrf_token }}
-    {{ form.username.label }} {{ form.username(required=true, **{'data-parsley-trigger':"keyup"}) }}
+    {{ form.username.label }} {{ form.username(id="username", required=true, **{'data-parsley-trigger':"keyup", 'data-parsley-remote': "/users/username_exists", 'data-parsley-remote-message': "Nobody here by that name. Maybe make a new account?", 'data-parsley-remote-options': "{data: {username: $(\'#username\').val()}}"}) }}
     {{ form.password.label }} {{ form.password(required=true, **{'data-parsley-trigger':"keyup"}) }}
     <button type="submit">Login</button>
     </fieldset>

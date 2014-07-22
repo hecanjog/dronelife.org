@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, url_for, flash, abort, session
+from flask import Flask, render_template, redirect, request, url_for, flash, abort, session, jsonify
 from flask.ext.login import login_required, current_user, login_user, logout_user
 from dronelife import app, db, forms, models
 from jinja2 import Environment
@@ -22,17 +22,26 @@ def inject_bgimg():
 def load_user(user_id):
     return models.User.query.filter_by(id=int(user_id)).first()
 
+@app.route('/users/username_exists')
+def username_exists():
+    username = request.args['username']
+    user = models.User.query.filter_by(username=username).first_or_404()
+    return jsonify({'exists': True})
+
+@app.route('/users/email_exists')
+def email_exists():
+    email = request.args['email']
+    user = models.User.query.filter_by(email=email).first_or_404()
+    return jsonify({'exists': True})
+
 @app.route('/password/reset/request', methods=['GET', 'POST'])
 def password_reset_request():
     form = forms.PasswordResetRequestForm()
     if form.validate_on_submit():
         # set token
-        user = models.User.query.filter_by(email=form.data['email']).one()
-        try:
-            token = user.set_token()
-            db.session.commit()
-        except:
-            print 'no user with this email', form.data['email']
+        user = models.User.query.filter_by(email=form.data['email']).first_or_404()
+        token = user.set_token()
+        db.session.commit()
 
         # send email
         c = ses.connect_to_region('us-east-1', 

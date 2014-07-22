@@ -4,8 +4,8 @@
     <fieldset>
         <legend>Register</legend>
     {{ form.csrf_token }}
-    {{ form.username.label }} {{ form.username(required=true, **{'data-parsley-trigger':"keyup", 'data-parsley-minlength': 3}) }}
-    {{ form.email.label }} {{ form.email(type="email", required=true, **{'data-parsley-trigger':"keyup"}) }}
+    {{ form.username.label }} {{ form.username(id="username", required=true, **{'data-parsley-trigger':"keyup", 'data-parsley-minlength': 3, 'data-parsley-remote-message': "This username has been taken. Did you forget your password?", 'data-parsley-remote': "/users/username_exists", 'data-parsley-remote-options': "{data: {username: $(\'#username\').val()}}", 'data-parsley-remote-reverse': "true"}) }}
+    {{ form.email.label }} {{ form.email(id="email", type="email", required=true, **{'data-parsley-trigger':"keyup", 'data-parsley-remote-message': "This email address has already been used. Did you forget your password?", 'data-parsley-remote': "/users/email_exists", 'data-parsley-remote-options': "{data: {email: $(\'#email\').val()}}", 'data-parsley-remote-reverse': "true" }) }}
     {{ form.password.label }} {{ form.password(required=true, **{'data-parsley-trigger':"keyup", 'data-parsley-minlength': 8}) }}
     <button type="submit">Register</button>
     </fieldset>
