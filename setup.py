@@ -13,6 +13,7 @@ setup(
         'alembic', 
         'flask-wtf',
         'flask-login',
+        'flask-admin',
         'flask-bcrypt',
         'docopt',
         'markdown',

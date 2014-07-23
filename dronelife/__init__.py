@@ -21,4 +21,5 @@ log_handler = logging.FileHandler(os.path.expanduser('~/dronelife.flask.log'))
 log_handler.setLevel(logging.WARNING)
 app.logger.addHandler(log_handler)
 
-from dronelife import controller
+import admin_controller 
+import controller
