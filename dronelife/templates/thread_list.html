@@ -10,9 +10,3 @@
     in <a href="{{ thread.topic.getUrl() }}">{{ thread.topic.content }}</a> 
     on {{ thread.posted.strftime('%A, %B %d %Y %I:%M%p')  }}
 </section>
-
-{% if current_user.is_admin %}
-<section class="manage">
-    <a href="/admin/delete/thread/{{ thread.id }}">Delete</a>
-</section>
-{% endif %}
