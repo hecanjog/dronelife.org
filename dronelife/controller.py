@@ -241,6 +241,8 @@ def login():
         user = models.User.query.filter_by(username=form.data['username']).first()
         if user is not None and user.check_hash(form.data['password']) == True:
             login_user(user)
+            user.last_login = datetime.utcnow()
+            db.session.commit()
 
             return redirect(request.args.get('next') or url_for('index'))
 
