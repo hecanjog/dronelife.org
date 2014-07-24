@@ -244,6 +244,9 @@ def login():
             user.last_login = datetime.utcnow()
             db.session.commit()
 
+            flash('Welcome back!', 'info')
             return redirect(request.args.get('next') or url_for('index'))
+        else:
+            flash('Passwords are the worst. Give\'er another try.', 'warning')
 
     return render_template('login.html', form=form)

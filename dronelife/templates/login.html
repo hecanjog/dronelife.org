@@ -1,5 +1,9 @@
 {% extends "layout.html" %}
 {% block body %}
+
+{% if error %}
+    <p class="error">{{ error }}</p>
+{% endif %}
 <form id="login-form" method="post" action="/login" data-parsley-validate>
     <fieldset>
     <legend>Login</legend>

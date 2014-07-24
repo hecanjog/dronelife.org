@@ -19,6 +19,19 @@
     <a href="/">#dronelife</a>{% if current_user.is_authenticated() %}<a href="/profile">Profile</a><a href="/logout">Logout</a>{% else %}<a href="/login">Login</a><a href="/register">Register</a>{% endif %}
 </nav>
 {% endblock %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+<section class="flash-messages">
+    {% if messages %}
+    <ul>
+        {% for category, message in messages %}
+        <li class="message {{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</section>
+{% endwith %}
+
 <main>{% block body %}{% endblock %}</main>{% block js %}{% endblock %}
 <script type="text/javascript">
           var _gaq = _gaq || [];

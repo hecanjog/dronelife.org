@@ -8,6 +8,7 @@
    "foundation/components/grid",
    "foundation/components/type",
    "foundation/components/visibility",
+   "compass/css3",
    "emoji/emoji";
 
 $main-width: 900px;
@@ -88,6 +89,45 @@ main {
     .forgot-password {
         float: right;
         padding: 20px;
+    }
+}
+
+.flash-messages {
+    padding: 5px;
+
+    ul {
+        list-style-type: none;
+        max-width: $main-width;
+        margin: 0 auto;
+        padding: 0;
+
+        .message {
+            background-color: $info-color;
+            color: darken($info-color, 40%);
+            padding: 10px;
+            padding-bottom: 6px;
+            text-align: center;
+            border-bottom: 4px solid darken($info-color, 10%);
+            font-weight: bold;
+
+            &.error {
+                background-color: $alert-color;
+                border-bottom: 4px solid darken($alert-color, 10%);
+                color: darken($alert-color, 40%);
+            }
+
+            &.warning {
+                background-color: $warning-color;
+                border-bottom: 4px solid darken($warning-color, 10%);
+                color: darken($alert-color, 40%);
+            }
+
+            &.success {
+                background-color: $success-color;
+                border-bottom: 4px solid darken($success-color, 10%);
+                color: darken($alert-color, 40%);
+            }
+        }
     }
 }
 

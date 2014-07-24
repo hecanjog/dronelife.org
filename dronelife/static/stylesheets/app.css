@@ -3360,6 +3360,40 @@ main:after {
   padding: 20px;
 }
 
+.flash-messages {
+  padding: 5px;
+}
+.flash-messages ul {
+  list-style-type: none;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0;
+}
+.flash-messages ul .message {
+  background-color: #a0d3e8;
+  color: #257697;
+  padding: 10px;
+  padding-bottom: 6px;
+  text-align: center;
+  border-bottom: 4px solid #77c0de;
+  font-weight: bold;
+}
+.flash-messages ul .message.error {
+  background-color: #f04124;
+  border-bottom: 4px solid #d32a0e;
+  color: #430e05;
+}
+.flash-messages ul .message.warning {
+  background-color: #f08a24;
+  border-bottom: 4px solid #d3700e;
+  color: #430e05;
+}
+.flash-messages ul .message.success {
+  background-color: #43ac6a;
+  border-bottom: 4px solid #358753;
+  color: #430e05;
+}
+
 .main-column {
   padding-left: 0.9375rem;
   padding-right: 0.9375rem;
