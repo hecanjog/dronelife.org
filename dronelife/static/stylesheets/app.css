@@ -150,8 +150,8 @@ button, .button {
   padding-left: 1.25rem;
   font-size: 1rem;
   /*     @else                            { font-size: $padding - rem-calc(2); } */
-  background-color: #e60000;
-  border-color: #b80000;
+  background-color: #329fcd;
+  border-color: #2880a4;
   color: white;
   -webkit-transition: background-color 300ms ease-out;
   -moz-transition: background-color 300ms ease-out;
@@ -163,7 +163,7 @@ button, .button {
   font-weight: bold !important;
 }
 button:hover, button:focus, .button:hover, .button:focus {
-  background-color: #b80000;
+  background-color: #2880a4;
 }
 button:hover, button:focus, .button:hover, .button:focus {
   color: white;
@@ -247,8 +247,8 @@ button.round, .button.round {
   border-radius: 1000px;
 }
 button.disabled, button[disabled], .button.disabled, .button[disabled] {
-  background-color: #e60000;
-  border-color: #b80000;
+  background-color: #329fcd;
+  border-color: #2880a4;
   color: white;
   cursor: default;
   opacity: 0.7;
@@ -256,13 +256,13 @@ button.disabled, button[disabled], .button.disabled, .button[disabled] {
   box-shadow: none;
 }
 button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
-  background-color: #b80000;
+  background-color: #2880a4;
 }
 button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
   color: white;
 }
 button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
-  background-color: #e60000;
+  background-color: #329fcd;
 }
 button.disabled.secondary, button[disabled].secondary, .button.disabled.secondary, .button[disabled].secondary {
   background-color: #e7e7e7;
@@ -2244,12 +2244,12 @@ td {
 
 /* Default Link Styles */
 a {
-  color: #e60000;
+  color: #329fcd;
   text-decoration: none;
   line-height: inherit;
 }
 a:hover, a:focus {
-  color: #c50000;
+  color: #2b89b0;
 }
 a img {
   border: none;
@@ -3318,7 +3318,7 @@ nav {
 }
 nav a {
   display: inline-block;
-  background-color: #db0000;
+  background-color: #3099c5;
   color: #fff;
   padding: 10px;
   margin: 0 5px 0 0;
@@ -3417,7 +3417,7 @@ main:after {
 }
 .thread-list .thread {
   margin: 5px 0;
-  background-color: rgba(230, 0, 0, 0.85);
+  background-color: rgba(50, 159, 205, 0.85);
 }
 .thread-list .thread .heading {
   width: 100%;
@@ -3481,7 +3481,7 @@ main:after {
 .thread-list .thread .manage a {
   float: right;
   font-size: 0.8rem;
-  color: #e60000;
+  color: #329fcd;
 }
 
 .recent-comments {
@@ -3510,7 +3510,7 @@ main:after {
 .recent-users li a {
   display: block;
   padding: 5px;
-  background-color: #e60000;
+  background-color: #329fcd;
   color: #fff;
 }
 
@@ -3633,4 +3633,15 @@ main:after {
   width: 100%;
   min-height: 40px;
   border: 1px solid #ddd;
+}
+
+.profile .profile-description {
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.85);
+}
+.profile .profile-website, .profile .profile-facebook, .profile .profile-twitter {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  margin: 2px 0;
+  padding: 5px;
 }

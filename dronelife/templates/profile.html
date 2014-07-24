@@ -3,20 +3,20 @@
 <article class="main-column profile">
     <h3>{{ user.username }}</h3>
 
-    {% if user.description %}
+    {% if user.description != '' %}
         <section class="profile-description">{{ user.description | safe }}</section>
     {% endif %}
 
-    {% if user.website %}
-        <section class="profile-website">{{ user.website }}</section>
+    {% if user.website != '' %}
+        <section class="profile-website">Website: <a href="{{ user.website }}">{{ user.website }}</a></section>
     {% endif %}
 
-    {% if user.facebook %}
-        <section class="profile-facebook">{{ user.facebook }}</section>
+    {% if user.facebook != '' %}
+        <section class="profile-facebook">Facebook: <a href="{{ user.facebook }}">{{ user.facebook }}</a></section>
     {% endif %}
 
-    {% if user.twitter %}
-        <section class="profile-twitter">{{ user.twitter }}</section>
+    {% if user.twitter != '' %}
+        <section class="profile-twitter">Twitter: <a href="{{ user.twitter }}">{{ user.twitter }}</a></section>
     {% endif %}
 </article>
 
