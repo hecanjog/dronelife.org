@@ -143,6 +143,12 @@ class User(db.Model):
     token = db.Column(db.String(120))
     token_expires = db.Column(db.DateTime)
 
+    enable_mailing_list = db.Column(db.Boolean)
+    enable_at_reply_notifications = db.Column(db.Boolean)
+    enable_direct_reply_notifications = db.Column(db.Boolean)
+    enable_created_threads_notifications = db.Column(db.Boolean)
+    enable_participated_threads_notifications = db.Column(db.Boolean)
+
 #    flagged = db.Column(db.Boolean)
 #    locked = db.Column(db.Boolean)
     is_admin = db.Column(db.Boolean)
