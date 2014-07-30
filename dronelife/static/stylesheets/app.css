@@ -3484,15 +3484,15 @@ main:after {
   color: #329fcd;
 }
 
-.recent-comments {
+.recent-posts {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-.recent-comments li {
+.recent-posts li {
   margin: 5px 0;
 }
-.recent-comments li blockquote, .recent-comments li p {
+.recent-posts li blockquote, .recent-posts li p {
   background-color: rgba(255, 255, 255, 0.95);
   font-size: 0.8em;
   padding: 10px;

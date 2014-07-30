@@ -3,15 +3,15 @@
         <h3>Recent Posts</h3>
     </header>
 
-    <ul class="recent-comments">
-        {% for comment in comments %}
-            {% if comment.thread_id %}
+    <ul class="recent-posts">
+        {% for post in posts %}
+            {% if post.thread_id %}
             <li>
                 <blockquote>
-                    {{ comment.content | safe }}
+                    {{ post.content | safe }}
                     <footer>
-                        <cite><a href="/{{ comment.author.username }}">{{ comment.author.username }}</a></cite> 
-                        <small><a class="post-permalink" href="/threads/{{ comment.thread_id }}/go/#post-{{ comment.id }}">{{ comment.posted.strftime('%A, %B %d %Y %I:%M%p') }}</a></small>
+                        <cite><a href="/{{ post.author.username }}">{{ post.author.username }}</a></cite> 
+                        <small><a class="post-permalink" href="/threads/{{ post.thread_id }}/go/#post-{{ post.id }}">{{ post.posted.strftime('%A, %B %d %Y %I:%M%p') }}</a></small>
                     </footer>
                 </blockquote>
             </li>

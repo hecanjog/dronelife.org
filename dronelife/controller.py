@@ -105,7 +105,6 @@ def profileRedirect():
     if form.validate_on_submit():
         # update profile
         user = models.User.query.filter_by(username=form.data['username']).first()
-        print user.website
         for attr, value in form.data.iteritems():
             setattr(user, attr, value)
 
@@ -124,11 +123,16 @@ def index():
 
     recent_users = models.User.query.order_by('registered_on desc').limit(20)
 
-    comments = models.Post.query.order_by('posted desc').limit(3)
+    posts = models.Post.query.order_by('posted desc').limit(5)
+    threads = models.Thread.query.order_by('updated desc').limit(30)
 
-    threads = models.Thread.query.order_by('posted desc').limit(30)
-
-    return render_template('index.html', form=form, topics=topics, threads=threads, comments=comments, recent_users=recent_users)
+    return render_template('index.html', 
+            form=form, 
+            topics=topics, 
+            threads=threads, 
+            posts=posts, 
+            recent_users=recent_users
+        )
 
 @app.route('/topics/<id>/<title>')
 def topic(id, title):
