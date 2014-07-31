@@ -1,4 +1,7 @@
-{% if current_user.is_authenticated() %}
+{% extends "layout.html" %}
+{% block body %}
+
+<section class="compose-thread">
 <form method="post" action="/threads">
 <fieldset>
     <legend>New Thread</legend>
@@ -8,9 +11,12 @@
     {{ form.title(size=(80)) }}
 
     {{ form.content.label }}
-    {{ form.content(rows=20) }}
+    {{ form.content(rows=100) }}
     <button type="submit">post</button>
 </fieldset>
 </form>
-{% endif %}
+</section>
 
+<section class="preview-thread"></section>
+
+{% endblock %}

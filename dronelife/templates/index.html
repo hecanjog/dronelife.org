@@ -4,13 +4,12 @@
 <section class="main-column">
     <ul class="thread-list">
         {% for thread in threads %}
-            <li class="thread">{% include "thread_list.html" %}</li>
+            <li class="thread">{% include "threads/list.html" %}</li>
         {% endfor %}
     </ul>
 </section>
 
 <section class="sidebar">
-    {% include "new_thread.html" %}
     {% include "recent_posts.html" %}
     {% include "recent_users.html" %}
 </section>

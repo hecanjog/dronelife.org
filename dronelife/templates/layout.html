@@ -16,7 +16,7 @@
 <body style="background-image: url(/static/img/{{ session.bgimg }})">
 {% block header %}
 <nav>
-    <a href="/">#dronelife</a>{% if current_user.is_authenticated() %}<a href="/profile">Profile</a><a href="/logout">Logout</a>{% else %}<a href="/login">Login</a><a href="/register">Register</a>{% endif %}
+<a href="/">#dronelife</a>{% if current_user.is_authenticated() %}<a href="/profile">Profile</a><a href="/logout">Logout</a><a class="compose-thread" href="/threads/compose">New Thread</a>{% else %}<a href="/login">Login</a><a href="/register">Register</a>{% endif %}
 </nav>
 {% endblock %}
 

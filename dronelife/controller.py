@@ -86,7 +86,7 @@ def thread(id, title):
     postform = forms.NewPostForm()
     replyform = forms.NewReplyForm()
 
-    return render_template('thread.html', thread=thread, postform=postform, replyform=replyform)
+    return render_template('threads/view.html', thread=thread, postform=postform, replyform=replyform)
 
 @app.route('/<username>')
 def profile(username):
@@ -116,19 +116,11 @@ def profileRedirect():
 
 @app.route('/')
 def index():
-    form = forms.NewThreadForm()
-    first_threads = db.aliased(models.Thread)
-    topics = models.Topic.query.all()
-    form.topic_id.choices = [ (topic.id, topic.content) for topic in topics ]
-
+    threads = models.Thread.query.order_by('updated desc').limit(30)
+    posts = models.Post.query.order_by('posted desc').limit(5)
     recent_users = models.User.query.order_by('registered_on desc').limit(20)
 
-    posts = models.Post.query.order_by('posted desc').limit(5)
-    threads = models.Thread.query.order_by('updated desc').limit(30)
-
     return render_template('index.html', 
-            form=form, 
-            topics=topics, 
             threads=threads, 
             posts=posts, 
             recent_users=recent_users
@@ -215,6 +207,17 @@ def register():
         return redirect('/profile')
 
     return render_template('register.html', form=form)
+
+@app.route('/threads/compose')
+def composeThread():
+    form = forms.NewThreadForm()
+    topics = models.Topic.query.all()
+    form.topic_id.choices = [ (topic.id, topic.content) for topic in topics ]
+
+    return render_template('threads/compose.html', 
+        form=form,
+        topics=topics
+    )
 
 @app.route('/threads', methods=['POST'])
 @login_required

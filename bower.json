@@ -6,6 +6,7 @@
     "foundation": "zurb/bower-foundation#~5.1.1",
     "compass-mixins": "Igosuki/compass-mixins",
     "parsleyjs": "~2.0.2",
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "underscore": "~1.6.0"
   }
 }
