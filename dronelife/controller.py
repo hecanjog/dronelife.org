@@ -8,6 +8,12 @@ import boto.ses as ses
 from datetime import datetime
 
 @app.before_request
+def store_last_active():
+    if current_user.is_authenticated() and request.path != '/users/unread/all':
+        current_user.last_active = datetime.utcnow()
+        db.session.commit()
+
+@app.before_request
 def inject_bgimg():
     session['bgimg'] = random.choice([
         'elaine1.png', 
@@ -62,6 +68,17 @@ Love,
             , [form.data['email']])
 
     return render_template('password_reset_request.html', form=form)
+
+@app.route('/users/unread/all')
+@login_required
+def all_unread():
+    num_threads = models.Thread.query.filter(models.Thread.posted > current_user.last_active).count()
+    num_posts = models.Thread.query.filter(models.Post.posted > current_user.last_active).count()
+
+    return jsonify({
+        'new_threads': num_threads,
+        'new_posts': num_posts
+    })
 
 @app.route('/password/reset/<token>', methods=['GET', 'POST'])
 def password_reset(token):
@@ -155,8 +172,6 @@ def addPost():
         current_user.id, 
         form.data['thread_id']
     )
-
-    print post
 
     db.session.add(post)
     db.session.commit()
