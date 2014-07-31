@@ -209,6 +209,7 @@ def register():
     return render_template('register.html', form=form)
 
 @app.route('/threads/compose')
+@login_required
 def composeThread():
     form = forms.NewThreadForm()
     topics = models.Topic.query.all()
