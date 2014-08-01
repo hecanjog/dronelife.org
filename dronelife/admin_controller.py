@@ -15,7 +15,7 @@ class AdminIndex(AdminIndexView):
         return super(AdminIndex, self).index()
 
 class UserView(ModelView):
-    column_list = ('username', 'email', 'last_login', 'post_count', 'registered_on', 'is_admin', 'is_moderator')
+    column_list = ('username', 'email', 'last_login', 'last_active', 'post_count', 'registered_on', 'is_admin', 'is_moderator')
 
     def __init__(self, session, **kwargs):
         super(UserView, self).__init__(models.User, session, **kwargs)
