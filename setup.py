@@ -15,12 +15,14 @@ setup(
         'flask-login',
         'flask-admin',
         'flask-bcrypt',
+        'flask-cache',
         'docopt',
         'markdown',
         'mdx_linkify',
         'boto',
         'requests',
-        'mailchimp'
+        'mailchimp',
+        'arrow'
     ],
     scripts=['bin/dronelife'],
     zip_safe=False,

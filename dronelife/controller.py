@@ -73,7 +73,7 @@ Love,
 @login_required
 def all_unread():
     num_threads = models.Thread.query.filter(models.Thread.posted > current_user.last_active).count()
-    num_posts = models.Thread.query.filter(models.Post.posted > current_user.last_active).count()
+    num_posts = models.Post.query.filter(models.Post.posted > current_user.last_active).count()
 
     return jsonify({
         'new_threads': num_threads,

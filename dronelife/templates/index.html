@@ -15,3 +15,51 @@
 </section>
 
 {% endblock %}
+
+{% block js %}
+{% raw %}
+<script id="notification-template" type="text/ractive">
+    {{#if new_threads }}
+    <p class="unread-threads-message"><a href="/">oh snap, new threads! ({{ new_threads }})</a></p>
+    {{/if}}
+
+    {{#if new_posts }}
+    <p class="unread-posts-message"><a href="/">shazaam, new posts! ({{ new_posts }})</a></p>
+    {{/if}}
+</script>
+{% endraw %}
+
+{% if current_user.is_authenticated() %}
+<script>
+    (function() {
+        var ractive = new Ractive({
+            el: '.flash-messages',
+            template: '#notification-template',
+            data: { new_threads: 0, new_posts: 0 },
+            has_stuff: function(new_threads, new_posts) {
+                return (new_threads > 0) || (new_posts > 0);
+            }
+        });
+
+        var pageTitle = document.title;
+
+        (function checkUnread() {
+            setTimeout(function() {
+                $.ajax({
+                    url: '/users/unread/all',
+                    type: 'GET',
+                    dataType: 'json'
+                }).done(function(data) {
+                    ractive.set(data);
+                    checkUnread();
+                    var total_updated = (data.new_threads + data.new_posts);
+                    if(total_updated > 0) {
+                        document.title = '(' + total_updated + ') ' + pageTitle;
+                    }
+                });
+            }, 1000 * 15);
+        })();
+    })();
+</script>
+{% endif %}
+{% endblock %}

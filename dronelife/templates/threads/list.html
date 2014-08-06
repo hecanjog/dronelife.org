@@ -8,5 +8,5 @@
 <section class="info">
     <p>Posted by <a href="/{{ thread.author.username }}">{{ thread.author.username }}</a> 
     in <a href="{{ thread.topic.getUrl() }}">{{ thread.topic.content }}</a> 
-    on {{ thread.posted.strftime('%A, %B %d %Y %I:%M%p')  }}
+    {{ thread.humanPosted() }}
 </section>

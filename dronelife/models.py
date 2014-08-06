@@ -8,6 +8,7 @@ from markdown import markdown
 from dronelife.emoji import EmojiExtension
 import time
 import mailchimp
+import arrow
 
 bcrypt = Bcrypt(app)
 
@@ -73,6 +74,9 @@ class Thread(db.Model):
     def getUrl(self):
         return '/threads/%s/%s' % (self.id, urllib.quote_plus(self.title))
 
+    def humanPosted(self):
+        return arrow.get(self.posted).humanize()
+
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     raw_content = db.Column(db.Text)
@@ -102,6 +106,16 @@ class Post(db.Model):
         self.content = parse_raw(content)
         self.edited = datetime.utcnow()
 
+    def humanPosted(self):
+        return arrow.get(self.posted).humanize()
+
+    def humanEdited(self):
+        return arrow.get(self.edited).humanize()
+
+
+
+
+
 class Reply(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     raw_content = db.Column(db.Text)
@@ -125,6 +139,14 @@ class Reply(db.Model):
         self.raw_content = content
         self.content = parse_raw(content)
         self.edited = datetime.utcnow()
+
+    def humanPosted(self):
+        return arrow.get(self.posted).humanize()
+
+    def humanEdited(self):
+        return arrow.get(self.edited).humanize()
+
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)

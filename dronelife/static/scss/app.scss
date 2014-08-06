@@ -129,15 +129,30 @@ main {
             &.warning {
                 background-color: $warning-color;
                 border-bottom: 4px solid darken($warning-color, 10%);
-                color: darken($alert-color, 40%);
+                color: darken($warning-color, 40%);
             }
 
             &.success {
                 background-color: $success-color;
                 border-bottom: 4px solid darken($success-color, 10%);
-                color: darken($alert-color, 40%);
+                color: darken($success-color, 40%);
             }
         }
+    }
+}
+
+.unread-threads-message,
+.unread-posts-message {
+    background-color: $success-color;
+    border-bottom: 4px solid darken($success-color, 10%);
+    width: $main-width;
+    margin: 2px auto;
+
+    a {
+        display: block;
+        color: #fff;
+        padding: 5px;
+        text-align: center;
     }
 }
 

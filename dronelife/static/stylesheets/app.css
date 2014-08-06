@@ -3402,12 +3402,27 @@ main:after {
 .flash-messages ul .message.warning {
   background-color: #f08a24;
   border-bottom: 4px solid #d3700e;
-  color: #430e05;
+  color: #432405;
 }
 .flash-messages ul .message.success {
   background-color: #43ac6a;
   border-bottom: 4px solid #358753;
-  color: #430e05;
+  color: #0a1910;
+}
+
+.unread-threads-message,
+.unread-posts-message {
+  background-color: #43ac6a;
+  border-bottom: 4px solid #358753;
+  width: 900px;
+  margin: 2px auto;
+}
+.unread-threads-message a,
+.unread-posts-message a {
+  display: block;
+  color: #fff;
+  padding: 5px;
+  text-align: center;
 }
 
 .main-column {
