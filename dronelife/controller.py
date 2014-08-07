@@ -7,6 +7,14 @@ import random
 import boto.ses as ses
 from datetime import datetime
 
+def send_bot_email(subject, message, emails):
+    # send email
+    c = ses.connect_to_region('us-east-1', 
+        aws_access_key_id=app.config['AWS_KEY'],
+        aws_secret_access_key=app.config['AWS_SECRET'])
+
+    return c.send_email('bot@dronelife.org', subject, message, emails, html_body=models.parse_raw(message))
+
 @app.before_request
 def store_last_active():
     if current_user.is_authenticated() and request.path != '/users/unread/all':
@@ -49,21 +57,15 @@ def password_reset_request():
         token = user.set_token()
         db.session.commit()
 
-        # send email
-        c = ses.connect_to_region('us-east-1', 
-            aws_access_key_id=app.config['AWS_KEY'],
-            aws_secret_access_key=app.config['AWS_SECRET'])
-
-        c.send_email('bot@dronelife.org', '[DRONELIFE] Password Reset Request', 
+        send_bot_email('[DRONELIFE] Password Reset Request', 
                """Heyo, 
 
 Head over here to choose a new password: %spassword/reset/%s
 
 If you didn't ask me to send this, just ignore it and the link will expire in an hour.
 
-Love,
-
-#dronebot
+Cheers,
+dronebot
                """ % (request.url_root, token)
             , [form.data['email']])
 
@@ -165,13 +167,38 @@ def logout():
 def addPost():
     form = forms.NewPostForm()
     thread = models.Thread.query.filter_by(id=form.data['thread_id']).first_or_404()
-    print form.data
 
     post = models.Post(
         form.data['content'], 
         current_user.id, 
         form.data['thread_id']
     )
+
+    # email anyone who has commented on the thread, if they have notifications on
+    # TODO: email thread author if notifications are on (merge list to avoid dupes)
+    emails = []
+    for p in models.Post.query.filter_by(thread_id=thread.id).distinct(models.Post.author_id):
+        if p.author.email not in emails and p.author.enable_participated_threads_notifications:
+            emails += [ p.author.email ]
+    
+    url = request.url_root[:-1] + thread.getUrl()
+    message = """Oh snap!
+
+Someone replied to **%s**: 
+
+%s
+
+%s
+
+I'll stop sending you these messages if you uncheck "send participated threads notifications" in your 
+profile: http://dronelife.org/profile
+
+Cheers,
+dronebot
+           """ % (thread.title, url, post.content)
+
+    if emails != []:
+        send_bot_email('#dronelife - new post - %s' % thread.title, message, emails)
 
     db.session.add(post)
     db.session.commit()
@@ -184,6 +211,8 @@ def addReply():
     form = forms.NewReplyForm()
     post = models.Post.query.filter_by(id=form.data['post_id']).first_or_404()
     print form.data
+    # email parent post author if notifications are on
+    # also other reply authors if notifications are on...
 
     reply = models.Reply(
         form.data['content'], 
@@ -240,6 +269,7 @@ def composeThread():
 def addThread():
     form = forms.NewThreadForm()
     print form.data
+    # post to dronelife twitter?
 
     topic = models.Topic.query.filter_by(id=form.data['topic_id']).first()
 
