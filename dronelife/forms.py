@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import TextAreaField, TextField, PasswordField, HiddenField, SelectField
+from wtforms import TextAreaField, TextField, PasswordField, HiddenField, SelectField, BooleanField
 from wtforms.validators import InputRequired, Optional
 
 class LoginForm(Form):
@@ -33,6 +33,7 @@ class ProfileForm(Form):
     facebook = TextField('facebook', validators=[Optional()])
     bandcamp = TextField('bandcamp', validators=[Optional()])
     soundcloud = TextField('soundcloud', validators=[Optional()])
+    enable_participated_threads_notifications = BooleanField("Send email when a thread I've participated in has a new post", validators=[Optional()])
 
 class PasswordResetRequestForm(Form):
     email = TextField('email', validators=[InputRequired()])

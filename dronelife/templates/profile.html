@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-<article class="main-column profile">
+<article class="profile">
     <h3>{{ user.username }}</h3>
 
     {% if user.description != '' %}
@@ -23,7 +23,7 @@
 {% if current_user.is_authenticated() and current_user.username == user.username %}
 <form method="post" action="/profile">
 <fieldset>
-    <legend>Profile</legend>
+    <legend>Account</legend>
     {{ form.csrf_token }}
     {{ form.username.label }}
     {{ form.username(value=user.username) }}
@@ -31,6 +31,11 @@
     {{ form.email.label }}
     {{ form.email(value=user.email) }}
 
+    <button type="submit">save</button>
+</fieldset>
+
+<fieldset>
+    <legend>Profile</legend>
     {{ form.website.label }}
     {{ form.website(value=user.website) }}
 
@@ -38,18 +43,43 @@
     {% set f = form.description.process_data(user.description) %}
     {{ form.description() }}
 
+    <button type="submit">save</button>
+</fieldset>
+
+<fieldset>
+    <legend>Socialisms</legend>
     {{ form.twitter.label }}
     {{ form.twitter(value=user.twitter) }}
 
     {{ form.facebook.label }}
     {{ form.facebook(value=user.facebook) }}
 
+    <button type="submit">save</button>
+</fieldset>
+
+<fieldset>
+    <legend>Music</legend>
     {{ form.bandcamp.label }}
     {{ form.bandcamp(value=user.bandcamp) }}
 
     {{ form.soundcloud.label }}
     {{ form.soundcloud(value=user.soundcloud) }}
 
+    <button type="submit">save</button>
+</fieldset>
+
+<fieldset>
+    <legend>Settings</legend>
+
+    {% if user.enable_participated_threads_notifications %}
+        {{ form.enable_participated_threads_notifications(checked=true, value=1) }}
+    {% else %}
+        {{ form.enable_participated_threads_notifications(value=1) }}
+    {% endif %}
+
+    {{ form.enable_participated_threads_notifications.label }}
+
+    <br/>
     <button type="submit">save</button>
 </fieldset>
 </form>
