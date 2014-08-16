@@ -94,7 +94,7 @@ main {
 #login-form {
     fieldset {
         @include clearfix();
-    }       
+    }
 
     .forgot-password {
         float: right;
@@ -170,7 +170,7 @@ main {
 .thread-list {
     list-style-type: none;
     margin: 0;
-    
+
     .thread {
         margin: 5px 0;
         background-color: transparentize($main-base, 0.15);
@@ -205,7 +205,7 @@ main {
                 margin: 0;
             }
 
-            a { 
+            a {
                 display: inline;
             }
         }
