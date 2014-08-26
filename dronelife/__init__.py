@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_appconfig.env import from_envvars
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager 
 import os
 import logging
