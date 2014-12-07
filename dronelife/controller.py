@@ -36,17 +36,41 @@ def inject_bgimg():
 def load_user(user_id):
     return models.User.query.filter_by(id=int(user_id)).first()
 
-@app.route('/users/username_exists')
-def username_exists():
-    username = request.args['username']
-    user = models.User.query.filter_by(username=username).first_or_404()
-    return jsonify({'exists': True})
+@app.route('/')
+def index():
+    threads = models.Thread.query.order_by('updated desc').limit(30)
+    posts = models.Post.query.order_by('posted desc').limit(5)
+    recent_users = models.User.query.order_by('registered_on desc').limit(20)
 
-@app.route('/users/email_exists')
-def email_exists():
-    email = request.args['email']
-    user = models.User.query.filter_by(email=email).first_or_404()
-    return jsonify({'exists': True})
+    return render_template('index.html', 
+            threads=threads, 
+            posts=posts, 
+            recent_users=recent_users
+        )
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = forms.LoginForm()
+    if form.validate_on_submit():
+        user = models.User.query.filter_by(username=form.data['username']).first()
+        if user is not None and user.check_hash(form.data['password']) == True:
+            login_user(user)
+            user.last_login = datetime.utcnow()
+            db.session.commit()
+
+            flash('Welcome back!', 'info')
+            return redirect(request.args.get('next') or url_for('index'))
+        else:
+            flash('Passwords are the worst. Give\'er another try.', 'warning')
+
+    return render_template('login.html', form=form)
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect('/login')
+
 
 @app.route('/password/reset/request', methods=['GET', 'POST'])
 def password_reset_request():
@@ -71,17 +95,6 @@ dronebot
 
     return render_template('password_reset_request.html', form=form)
 
-@app.route('/users/unread/all')
-@login_required
-def all_unread():
-    num_threads = models.Thread.query.filter(models.Thread.posted > current_user.last_active).count()
-    num_posts = models.Post.query.filter(models.Post.posted > current_user.last_active).count()
-
-    return jsonify({
-        'new_threads': num_threads,
-        'new_posts': num_posts
-    })
-
 @app.route('/password/reset/<token>', methods=['GET', 'POST'])
 def password_reset(token):
     user = models.User.query.filter_by(token=token).one()
@@ -98,69 +111,6 @@ def password_reset(token):
         return redirect('/login')
 
     return render_template('password_reset.html', token=token, form=form)
-
-@app.route('/threads/<id>/<title>/')
-def thread(id, title):
-    thread = models.Thread.query.filter_by(id=id).first_or_404()
-    postform = forms.NewPostForm()
-    replyform = forms.NewReplyForm()
-
-    return render_template('threads/view.html', thread=thread, postform=postform, replyform=replyform)
-
-@app.route('/<username>')
-def profile(username):
-    user = models.User.query.filter_by(username=username).first_or_404()
-    form = forms.ProfileForm()
-
-    print form.description
-
-    return render_template('profile.html', user=user, form=form)
-
-@app.route('/profile', methods=['GET', 'POST'])
-@login_required
-def profileRedirect():
-    form = forms.ProfileForm()
-
-    if form.validate_on_submit():
-        # update profile
-        user = models.User.query.filter_by(username=form.data['username']).first()
-        for attr, value in form.data.iteritems():
-            setattr(user, attr, value)
-
-        db.session.commit()
-    else:
-        print form.errors
-
-    return redirect('/'+current_user.username)
-
-@app.route('/')
-def index():
-    threads = models.Thread.query.order_by('updated desc').limit(30)
-    posts = models.Post.query.order_by('posted desc').limit(5)
-    recent_users = models.User.query.order_by('registered_on desc').limit(20)
-
-    return render_template('index.html', 
-            threads=threads, 
-            posts=posts, 
-            recent_users=recent_users
-        )
-
-@app.route('/topics/<id>/<title>')
-def topic(id, title):
-    form = forms.NewThreadForm()
-    first_threads = db.aliased(models.Thread)
-    topics = models.Topic.query.all()
-    form.topic_id.choices = [ (topic.id, topic.content) for topic in topics ]
-
-    topic = models.Topic.query.filter_by(id=id).one()
-
-    return render_template('topic.html', form=form, topic=topic)
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect('/login')
 
 @app.route('/posts', methods=['POST'])
 @login_required
@@ -205,27 +155,22 @@ dronebot
 
     return redirect(thread.getUrl())
 
-@app.route('/replies', methods=['POST'])
+@app.route('/profile', methods=['GET', 'POST'])
 @login_required
-def addReply():
-    form = forms.NewReplyForm()
-    post = models.Post.query.filter_by(id=form.data['post_id']).first_or_404()
-    print form.data
-    # email parent post author if notifications are on
-    # also other reply authors if notifications are on...
+def profileRedirect():
+    form = forms.ProfileForm()
 
-    reply = models.Reply(
-        form.data['content'], 
-        current_user.id, 
-        form.data['post_id']
-    )
+    if form.validate_on_submit():
+        # update profile
+        user = models.User.query.filter_by(username=form.data['username']).first()
+        for attr, value in form.data.iteritems():
+            setattr(user, attr, value)
 
-    db.session.add(reply)
-    db.session.commit()
+        db.session.commit()
+    else:
+        print form.errors
 
-    thread = models.Thread.query.filter_by(id=post.thread_id).first_or_404()
-
-    return redirect(thread.getUrl())
+    return redirect('/'+current_user.username)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -252,17 +197,27 @@ def register():
 
     return render_template('register.html', form=form)
 
-@app.route('/threads/compose')
+@app.route('/replies', methods=['POST'])
 @login_required
-def composeThread():
-    form = forms.NewThreadForm()
-    topics = models.Topic.query.all()
-    form.topic_id.choices = [ (topic.id, topic.content) for topic in topics ]
+def addReply():
+    form = forms.NewReplyForm()
+    post = models.Post.query.filter_by(id=form.data['post_id']).first_or_404()
+    print form.data
+    # email parent post author if notifications are on
+    # also other reply authors if notifications are on...
 
-    return render_template('threads/compose.html', 
-        form=form,
-        topics=topics
+    reply = models.Reply(
+        form.data['content'], 
+        current_user.id, 
+        form.data['post_id']
     )
+
+    db.session.add(reply)
+    db.session.commit()
+
+    thread = models.Thread.query.filter_by(id=post.thread_id).first_or_404()
+
+    return redirect(thread.getUrl())
 
 @app.route('/threads', methods=['POST'])
 @login_required
@@ -287,19 +242,67 @@ def addThread():
 
     return redirect(thread.getUrl())
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    form = forms.LoginForm()
-    if form.validate_on_submit():
-        user = models.User.query.filter_by(username=form.data['username']).first()
-        if user is not None and user.check_hash(form.data['password']) == True:
-            login_user(user)
-            user.last_login = datetime.utcnow()
-            db.session.commit()
+@app.route('/threads/compose')
+@login_required
+def composeThread():
+    form = forms.NewThreadForm()
+    topics = models.Topic.query.all()
+    form.topic_id.choices = [ (topic.id, topic.content) for topic in topics ]
 
-            flash('Welcome back!', 'info')
-            return redirect(request.args.get('next') or url_for('index'))
-        else:
-            flash('Passwords are the worst. Give\'er another try.', 'warning')
+    return render_template('threads/compose.html', 
+        form=form,
+        topics=topics
+    )
 
-    return render_template('login.html', form=form)
+@app.route('/threads/<id>/<title>/')
+def thread(id, title):
+    thread = models.Thread.query.filter_by(id=id).first_or_404()
+    postform = forms.NewPostForm()
+    replyform = forms.NewReplyForm()
+
+    return render_template('threads/view.html', thread=thread, postform=postform, replyform=replyform)
+
+@app.route('/topics/<id>/<title>')
+def topic(id, title):
+    form = forms.NewThreadForm()
+    first_threads = db.aliased(models.Thread)
+    topics = models.Topic.query.all()
+    form.topic_id.choices = [ (topic.id, topic.content) for topic in topics ]
+
+    topic = models.Topic.query.filter_by(id=id).one()
+
+    return render_template('topic.html', form=form, topic=topic)
+
+@app.route('/<username>')
+def profile(username):
+    user = models.User.query.filter_by(username=username).first_or_404()
+    form = forms.ProfileForm()
+
+    print form.description
+
+    return render_template('profile.html', user=user, form=form)
+
+@app.route('/users/username_exists')
+def username_exists():
+    username = request.args['username']
+    user = models.User.query.filter_by(username=username).first_or_404()
+    return jsonify({'exists': True})
+
+@app.route('/users/email_exists')
+def email_exists():
+    email = request.args['email']
+    user = models.User.query.filter_by(email=email).first_or_404()
+    return jsonify({'exists': True})
+
+@app.route('/users/unread/all')
+@login_required
+def all_unread():
+    num_threads = models.Thread.query.filter(models.Thread.posted > current_user.last_active).count()
+    num_posts = models.Post.query.filter(models.Post.posted > current_user.last_active).count()
+
+    return jsonify({
+        'new_threads': num_threads,
+        'new_posts': num_posts
+    })
+
+
