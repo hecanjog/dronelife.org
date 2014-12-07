@@ -231,18 +231,6 @@ main {
 
     #content, .preview {
         min-height: 300px;
-        width: 50%;
-        float: left;
-    }
-
-    .preview {
-        padding: 10px;
-
-        h1,h2,h3,h4,h5,h6 {
-            font-size: 1.2em;
-        }
-
-        background-color: rgba(255,255,255,0.95);
     }
 
     button[type=submit] {
@@ -250,6 +238,33 @@ main {
         display: block;
     }
 }
+
+.compose-post {
+    #content, .preview {
+        min-height: 100px;
+    }
+
+    button[type=submit] {
+        clear: both;
+        display: block;
+    }
+}
+
+#content, .preview {
+    width: 50%;
+    float: left;
+}
+
+.preview {
+    padding: 10px;
+
+    h1,h2,h3,h4,h5,h6 {
+        font-size: 1.2em;
+    }
+
+    background-color: rgba(255,255,255,0.95);
+}
+
 
 .recent-posts {
     list-style-type: none;

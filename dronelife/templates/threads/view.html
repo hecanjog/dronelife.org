@@ -14,6 +14,26 @@
             $(this).parent().parent().fadeOut('fast');
         });
 
+        var $preview = $('.preview');
+        var $content = $('#content');
+
+        var updatePreview = function() {
+            var content = $content.val();
+            console.log(content);
+            $.ajax({
+                url: '/preview',
+                type: 'POST',
+                data: {
+                    content: content
+                }
+            }).done(function(content) {
+                $preview.html(content); 
+            });
+        };
+
+        var throttledPreview = _.throttle(updatePreview, 500);
+
+        $content.on('keyup', throttledPreview);
     });
 </script>
 {% endblock %}
@@ -83,11 +103,13 @@
 
 <footer>
 {% if current_user.is_authenticated() %}
-<form method="post" action="/posts">
+<form class="compose-post" method="post" action="/posts">
 <fieldset>
     <legend>Reply</legend>
     {{ postform.thread_id(value=thread.id) }}
     {{ postform.content(rows=20) }}
+    <div class="preview"></div>
+
     <button type="submit">Reply</button>
 </fieldset>
 </form>
