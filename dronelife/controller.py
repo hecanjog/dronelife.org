@@ -71,7 +71,6 @@ def logout():
     logout_user()
     return redirect('/login')
 
-
 @app.route('/password/reset/request', methods=['GET', 'POST'])
 def password_reset_request():
     form = forms.PasswordResetRequestForm()
@@ -154,6 +153,12 @@ dronebot
     db.session.commit()
 
     return redirect(thread.getUrl())
+
+@app.route('/preview', methods=['POST'])
+@login_required
+def preview():
+    html = models.parse_raw(request.form['content'])
+    return html
 
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
