@@ -216,6 +216,7 @@ class User(db.Model):
     def set_token(self):
         self.token = urllib.quote_plus(bcrypt.generate_password_hash(random.random()))[-6:]
         self.token_expires = datetime.utcfromtimestamp(time.time() + (60 * 60)) # expires in 1 hour
+        return self.token
 
     def subscribe(self):
         mc = mailchimp.Mailchimp(apikey=app.config['MAILCHIMP_APIKEY'])
@@ -228,6 +229,4 @@ class User(db.Model):
         lists = mailchimp.Lists(mc)
         list_id = lists.list()['data'][0]['id']
         lists.unsubscribe(list_id, {'email': {'email': self.email}})
-
-        return self.token
 
